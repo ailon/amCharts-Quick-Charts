@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickCharts", "QuickCharts\QuickCharts.csproj", "{724CD76B-998A-49F1-BCB2-AAD9132E6D07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWPF", "QuickChartsWPF\QuickChartsWPF.csproj", "{6A7C16D6-B63C-4006-9F20-E9D6D4EBA09C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{724CD76B-998A-49F1-BCB2-AAD9132E6D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724CD76B-998A-49F1-BCB2-AAD9132E6D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724CD76B-998A-49F1-BCB2-AAD9132E6D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724CD76B-998A-49F1-BCB2-AAD9132E6D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A7C16D6-B63C-4006-9F20-E9D6D4EBA09C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A7C16D6-B63C-4006-9F20-E9D6D4EBA09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A7C16D6-B63C-4006-9F20-E9D6D4EBA09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A7C16D6-B63C-4006-9F20-E9D6D4EBA09C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
