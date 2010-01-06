@@ -21,7 +21,9 @@
                         <amq:ValueAxis Grid.Column="0" Grid.Row="0" />
                         <amq:CategoryAxis Grid.Column="1" Grid.Row="1" />
                         
-                        <Canvas Grid.Column="1" Grid.Row="1" />
+                        <Border x:Name="PART_GraphCanvasDecorator">
+                            <Canvas x:Name="PART_GraphCanvas" Grid.Column="1" Grid.Row="1" />
+                        </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
