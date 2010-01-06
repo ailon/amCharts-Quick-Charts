@@ -111,8 +111,8 @@ namespace AmCharts.Windows.QuickCharts
         private Dictionary<string, List<double>> _values = new Dictionary<string, List<double>>();
         private Dictionary<string, PointCollection> _locations = new Dictionary<string, PointCollection>();
 
-        private double MinimumValue { get; set; }
-        private double MaximumValue { get; set; }
+        private double _minimumValue;
+        private double _maximumValue;
 
         private void ProcessData()
         {
@@ -133,6 +133,7 @@ namespace AmCharts.Windows.QuickCharts
             {
                 _values.Clear();
             }
+            InvalidateMinMax();
         }
 
         private void AddSingleStepValues(IEnumerable<string> paths, Dictionary<string, BindingEvaluator> bindingEvaluators, object dataItem)
@@ -168,6 +169,19 @@ namespace AmCharts.Windows.QuickCharts
             {
                 _values.Add(path, new List<double>());
             }
+        }
+
+        private void SetMinMax()
+        {
+            _minimumValue = (from vs in _values.Values
+                             select vs.Min()).Min();
+            _maximumValue = (from vs in _values.Values
+                             select vs.Max()).Max();
+        }
+
+        private void InvalidateMinMax()
+        {
+            SetMinMax();
         }
     }
 }
