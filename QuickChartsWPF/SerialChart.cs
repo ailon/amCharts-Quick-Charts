@@ -49,6 +49,24 @@ namespace AmCharts.Windows.QuickCharts
             set { throw new System.NotSupportedException("Setting Graphs collection is not supported"); }
         }
 
+
+        public override void OnApplyTemplate()
+        {
+            _graphCanvasDecorator = (Border)TreeHelper.TemplateFindName("PART_GraphCanvasDecorator", this);
+            _graphCanvasDecorator.SizeChanged += new SizeChangedEventHandler(_graphCanvasDecorator_SizeChanged);
+        }
+
+        void _graphCanvasDecorator_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            _plotAreaInnerSize = new Size(_graphCanvasDecorator.ActualWidth, _graphCanvasDecorator.ActualHeight);
+            SetPointLocations();
+        }
+
+        private Border _graphCanvasDecorator;
+        private Canvas _graphCanvas;
+
+        private Size _plotAreaInnerSize;
+
         public CategoryAxis CategoryAxis
         {
             get;
@@ -183,6 +201,8 @@ namespace AmCharts.Windows.QuickCharts
                              select vs.Max()).Max();
 
             AdjustMinMax(5); // TODO: add logic to set grid count automatically based on chart size
+
+            SetPointLocations();
         }
 
         private void AdjustMinMax(int desiredGridCount)
@@ -266,5 +286,42 @@ namespace AmCharts.Windows.QuickCharts
         {
             SetMinMax();
         }
+
+        private Point GetPointCoordinates(int index, double value)
+        {
+            return new Point(GetXCoordinate(index), GetYCoordinate(value));
+        }
+
+        private double GetXCoordinate(int index)
+        {
+            int count = _values[_values.Keys.First()].Count;
+
+            return (_plotAreaInnerSize.Width / (count - 1)) * index;
+        }
+
+        private double GetYCoordinate(double value)
+        {
+            return _plotAreaInnerSize.Height - _plotAreaInnerSize.Height * ((value - _adjustedMinimumValue) / (_adjustedMaximumValue - _adjustedMinimumValue));
+        }
+
+        private void SetPointLocations()
+        {
+            _locations.Clear();
+
+            if (_values.Count > 0)
+            {
+                var paths = GetDistinctPaths();
+
+                foreach (string path in paths)
+                {
+                    _locations.Add(path, new PointCollection());
+                    for (int i = 0; i < _values[path].Count; i++)
+                    {
+                        _locations[path].Add(GetPointCoordinates(i, _values[path][i]));
+                    }
+                }
+            }
+        }
+
     }
 }
