@@ -113,6 +113,10 @@ namespace AmCharts.Windows.QuickCharts
 
         private double _minimumValue;
         private double _maximumValue;
+        private double _adjustedMinimumValue;
+        private double _adjustedMaximumValue;
+
+        private double _valueGridStep;
 
         private void ProcessData()
         {
@@ -177,7 +181,86 @@ namespace AmCharts.Windows.QuickCharts
                              select vs.Min()).Min();
             _maximumValue = (from vs in _values.Values
                              select vs.Max()).Max();
+
+            AdjustMinMax(5); // TODO: add logic to set grid count automatically based on chart size
         }
+
+        private void AdjustMinMax(int desiredGridCount)
+        {
+            // TODO: refactor into something more comprehensible
+            double min = _minimumValue;
+            double max = _maximumValue;
+
+            if (min == 0 && max == 0)
+            {
+                max = 9;
+            }
+
+            if (min > max)
+            {
+                min = max - 1;
+            }
+
+            // "beautify" min/max
+            double initial_min = min;
+            double initial_max = max;
+
+            double dif = max - min;
+            double dif_e;
+
+            if (dif == 0)
+            {
+                // difference is 0 if all values of the period are equal
+                // then difference will be
+                dif_e = Math.Pow(10, Math.Floor(Math.Log(Math.Abs(max)) * Math.Log10(Math.E))) / 10;
+            }
+            else
+            {
+                dif_e = Math.Pow(10, Math.Floor(Math.Log(Math.Abs(dif)) * Math.Log10(Math.E))) / 10;
+            }
+
+            // new min and max
+            max = Math.Ceiling(max / dif_e) * dif_e + dif_e;
+            min = Math.Floor(min / dif_e) * dif_e - dif_e;
+
+            // new difference
+            dif = max - min;
+            dif_e = Math.Pow(10, Math.Floor(Math.Log(Math.Abs(dif)) * Math.Log10(Math.E))) / 10;
+
+            // aprox size of the step
+            double step = Math.Ceiling((dif / desiredGridCount) / dif_e) * dif_e;
+            double step_e = Math.Pow(10, Math.Floor(Math.Log(Math.Abs(step)) * Math.Log10(Math.E)));
+
+            double temp = Math.Ceiling(step / step_e);	//number from 1 to 10
+
+            if (temp > 5)
+                temp = 10;
+
+            if (temp <= 5 && temp > 2)
+                temp = 5;
+
+            //real step
+            step = Math.Ceiling(step / (step_e * temp)) * step_e * temp;
+
+            min = step * Math.Floor(min / step); //final max
+            max = step * Math.Ceiling(max / step); //final min
+
+            if (min < 0 && initial_min >= 0)
+            { //min is zero if initial min > 0
+                min = 0;
+            }
+
+            if (max > 0 && initial_max <= 0)
+            { //min is zero if initial min > 0
+                max = 0;
+            }
+
+            _valueGridStep = step;
+
+            _adjustedMinimumValue = min;
+            _adjustedMaximumValue = max;
+        }
+
 
         private void InvalidateMinMax()
         {
