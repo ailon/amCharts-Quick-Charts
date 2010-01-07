@@ -46,6 +46,17 @@ namespace QuickCharts
             _data.Insert(4, new TestDataItem() { cat1 = "cat3.2", val1 = 31, val2 = 32, val3 = 33 });
             _data.Add(new TestDataItem() { cat1 = "cat_new", val1 = 12, val2 = 22, val3 = 32 });
         }
+        private void Button2_Click(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = null;
+            _data.Clear();
+            Random rnd = new Random();
+            for (int i = 0; i < 1000; i++)
+            {
+                _data.Add(new TestDataItem() { cat1 = i.ToString(), val1 = rnd.NextDouble() * 8, val2 = rnd.NextDouble() * 18, val3 = rnd.NextDouble() * 5 + 3 });
+            }
+            this.DataContext = this;
+        }
     }
 
     public class TestDataItem

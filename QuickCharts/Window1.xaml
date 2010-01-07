@@ -16,6 +16,9 @@
             </amq:SerialChart.Graphs>
         </amq:SerialChart>
         
-        <Button Grid.Row="1" Click="Button_Click">Add data</Button>
+        <StackPanel Grid.Row="1">
+            <Button Click="Button_Click">Add data</Button>
+            <Button Click="Button2_Click">Add random data</Button>
+        </StackPanel>
     </Grid>
 </Window>
