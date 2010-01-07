@@ -21,8 +21,8 @@
                         <amq:ValueAxis Grid.Column="0" Grid.Row="0" />
                         <amq:CategoryAxis Grid.Column="1" Grid.Row="1" />
                         
-                        <Border x:Name="PART_GraphCanvasDecorator">
-                            <Canvas x:Name="PART_GraphCanvas" Grid.Column="1" Grid.Row="1" />
+                        <Border x:Name="PART_GraphCanvasDecorator" Grid.Column="1" Grid.Row="0">
+                            <Canvas x:Name="PART_GraphCanvas" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
@@ -39,4 +39,15 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="amq:LineGraph">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="amq:LineGraph">
+                    <Canvas x:Name="PART_GraphCanvas" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

@@ -17,6 +17,8 @@ namespace AmCharts.Windows.QuickCharts
             this.DefaultStyleKey = typeof(SerialChart);
 
             this._graphs.CollectionChanged += new NotifyCollectionChangedEventHandler(_graphs_CollectionChanged);
+
+            this.LayoutUpdated += new EventHandler(OnLayoutUpdated);
         }
 
         void _graphs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -26,6 +28,7 @@ namespace AmCharts.Windows.QuickCharts
                 foreach (SerialGraph graph in e.OldItems)
                 {
                     graph.ValueMemberPathChanged -= OnGraphValueMemberPathChanged;
+                    RemoveGraphFromCanvas(graph);
                 }
             }
 
@@ -34,8 +37,27 @@ namespace AmCharts.Windows.QuickCharts
                 foreach (SerialGraph graph in e.NewItems)
                 {
                     graph.ValueMemberPathChanged += new EventHandler<DataPathEventArgs>(OnGraphValueMemberPathChanged);
+                    AddGraphToCanvas(graph);
                 }
             }
+        }
+
+        private void AddGraphToCanvas(SerialGraph graph)
+        {
+            if (_graphCanvas != null && !_graphCanvas.Children.Contains(graph))
+                _graphCanvas.Children.Add(graph);
+        }
+
+        private void RemoveGraphFromCanvas(SerialGraph graph)
+        {
+            if (_graphCanvas != null && _graphCanvas.Children.Contains(graph))
+                _graphCanvas.Children.Remove(graph);
+        }
+
+        private void AddGraphsToCanvas()
+        {
+            foreach (SerialGraph graph in _graphs)
+                AddGraphToCanvas(graph);
         }
 
         void OnGraphValueMemberPathChanged(object sender, DataPathEventArgs e)
@@ -54,6 +76,9 @@ namespace AmCharts.Windows.QuickCharts
         {
             _graphCanvasDecorator = (Border)TreeHelper.TemplateFindName("PART_GraphCanvasDecorator", this);
             _graphCanvasDecorator.SizeChanged += new SizeChangedEventHandler(_graphCanvasDecorator_SizeChanged);
+
+            _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
+            AddGraphsToCanvas();
         }
 
         void _graphCanvasDecorator_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -195,14 +220,19 @@ namespace AmCharts.Windows.QuickCharts
 
         private void SetMinMax()
         {
-            _minimumValue = (from vs in _values.Values
-                             select vs.Min()).Min();
-            _maximumValue = (from vs in _values.Values
-                             select vs.Max()).Max();
+            if (_values.Count > 0)
+            {
+                _minimumValue = (from vs in _values.Values
+                                 select vs.Min()).Min();
+                _maximumValue = (from vs in _values.Values
+                                 select vs.Max()).Max();
 
-            AdjustMinMax(5); // TODO: add logic to set grid count automatically based on chart size
+                AdjustMinMax(5); // TODO: add logic to set grid count automatically based on chart size
 
-            SetPointLocations();
+                SetPointLocations();
+
+                RenderGraphs();
+            }
         }
 
         private void AdjustMinMax(int desiredGridCount)
@@ -320,6 +350,24 @@ namespace AmCharts.Windows.QuickCharts
                         _locations[path].Add(GetPointCoordinates(i, _values[path][i]));
                     }
                 }
+
+                foreach (SerialGraph graph in this._graphs)
+                {
+                    graph.SetPointLocations(_locations[graph.ValueMemberPath]);
+                }
+            }
+        }
+
+        private void OnLayoutUpdated(object sender, EventArgs e)
+        {
+            RenderGraphs();
+        }
+
+        private void RenderGraphs()
+        {
+            foreach (SerialGraph graph in this._graphs)
+            {
+                graph.Render();
             }
         }
 

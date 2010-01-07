@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace AmCharts.Windows.QuickCharts
 {
     public abstract class SerialGraph : Control
     {
-
         public event EventHandler<DataPathEventArgs> ValueMemberPathChanged;
 
         public static readonly DependencyProperty ValueMemberPathProperty = DependencyProperty.Register(
@@ -31,5 +31,16 @@ namespace AmCharts.Windows.QuickCharts
                 graph.ValueMemberPathChanged(graph, new DataPathEventArgs(e.NewValue as string));
             }
         }
+
+        private PointCollection _locations;
+        
+        protected PointCollection Locations { get { return _locations; } }
+        
+        public void SetPointLocations(PointCollection locations)
+        {
+            _locations = locations;
+        }
+
+        public abstract void Render();
     }
 }
