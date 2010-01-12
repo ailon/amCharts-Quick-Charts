@@ -35,12 +35,37 @@ namespace AmCharts.Windows.QuickCharts
         private PointCollection _locations;
         
         protected PointCollection Locations { get { return _locations; } }
+
+        private double _groundLevel;
+
+        protected double GroundLevel { get { return _groundLevel; } }
         
-        public void SetPointLocations(PointCollection locations)
+        public void SetPointLocations(PointCollection locations, double groundLevel)
         {
             _locations = locations;
+            _groundLevel = groundLevel;
         }
 
         public abstract void Render();
+
+        protected double XStep
+        {
+            get
+            {
+                if (Locations.Count > 1)
+                {
+                    return Locations[1].X - Locations[0].X;
+                }
+                else if (Locations.Count == 1)
+                {
+                    return Locations[0].X * 2;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
     }
 }

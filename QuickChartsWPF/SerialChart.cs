@@ -158,6 +158,7 @@ namespace AmCharts.Windows.QuickCharts
         private double _maximumValue;
         private double _adjustedMinimumValue;
         private double _adjustedMaximumValue;
+        private double _groundValue; // 0 or closest to 0
 
         private double _valueGridStep;
 
@@ -309,6 +310,9 @@ namespace AmCharts.Windows.QuickCharts
 
             _adjustedMinimumValue = min;
             _adjustedMaximumValue = max;
+
+            // ground value (starting point for column an similar graphs)
+            _groundValue = (min <= 0 && 0 <= max) ? 0 : (max > 0 ? min : max);
         }
 
 
@@ -353,7 +357,7 @@ namespace AmCharts.Windows.QuickCharts
 
                 foreach (SerialGraph graph in this._graphs)
                 {
-                    graph.SetPointLocations(_locations[graph.ValueMemberPath]);
+                    graph.SetPointLocations(_locations[graph.ValueMemberPath], GetYCoordinate(_groundValue));
                 }
             }
         }

@@ -50,4 +50,14 @@
         </Setter>
     </Style>
 
+    <Style TargetType="amq:ColumnGraph">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="amq:ColumnGraph">
+                    <Canvas x:Name="PART_GraphCanvas" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
