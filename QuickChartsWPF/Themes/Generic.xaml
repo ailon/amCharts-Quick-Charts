@@ -1,63 +1,12 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts"
     >
-    <Style TargetType="amq:SerialChart">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="amq:SerialChart">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        
-                        <amq:ValueAxis Grid.Column="0" Grid.Row="0" />
-                        <amq:CategoryAxis Grid.Column="1" Grid.Row="1" />
-                        
-                        <Border x:Name="PART_GraphCanvasDecorator" Grid.Column="1" Grid.Row="0">
-                            <Canvas x:Name="PART_GraphCanvas" />
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="amq:ValueAxis">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="amq:ValueAxis">
-                    <Border Background="Red"></Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="amq:LineGraph">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="amq:LineGraph">
-                    <Canvas x:Name="PART_GraphCanvas" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="amq:ColumnGraph">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="amq:ColumnGraph">
-                    <Canvas x:Name="PART_GraphCanvas" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/AmCharts.Windows.QuickCharts;component/Themes/SerialChart.xaml" />
+        <ResourceDictionary Source="/AmCharts.Windows.QuickCharts;component/Themes/ValueAxis.xaml" />
+        <ResourceDictionary Source="/AmCharts.Windows.QuickCharts;component/Themes/ColumnGraph.xaml" />
+        <ResourceDictionary Source="/AmCharts.Windows.QuickCharts;component/Themes/LineGraph.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

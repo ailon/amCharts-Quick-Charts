@@ -1,0 +1,32 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts"
+    >
+    <Style TargetType="amq:SerialChart">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="amq:SerialChart">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <amq:ValueAxis Grid.Column="0" Grid.Row="0" />
+                        <amq:CategoryAxis Grid.Column="1" Grid.Row="1" />
+
+                        <Border x:Name="PART_GraphCanvasDecorator" Grid.Column="1" Grid.Row="0">
+                            <Canvas x:Name="PART_GraphCanvas" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
