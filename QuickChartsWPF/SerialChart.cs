@@ -76,15 +76,16 @@ namespace AmCharts.Windows.QuickCharts
         {
             _graphCanvasDecorator = (Border)TreeHelper.TemplateFindName("PART_GraphCanvasDecorator", this);
             _graphCanvasDecorator.SizeChanged += new SizeChangedEventHandler(_graphCanvasDecorator_SizeChanged);
-
             _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
             AddGraphsToCanvas();
+
+            _valueAxis = (ValueAxis)TreeHelper.TemplateFindName("PART_ValueAxis", this);
         }
 
         void _graphCanvasDecorator_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             _plotAreaInnerSize = new Size(_graphCanvasDecorator.ActualWidth, _graphCanvasDecorator.ActualHeight);
-            SetPointLocations();
+            SetLocations();
         }
 
         private Border _graphCanvasDecorator;
@@ -98,12 +99,7 @@ namespace AmCharts.Windows.QuickCharts
             set;
         }
 
-        public ValueAxis ValueAxis
-        {
-            get;
-            set;
-        }
-
+        private ValueAxis _valueAxis;
 
         public static readonly DependencyProperty DataSourceProperty = DependencyProperty.Register(
             "DataSource", typeof(IEnumerable), typeof(SerialChart), 
@@ -161,6 +157,8 @@ namespace AmCharts.Windows.QuickCharts
         private double _groundValue; // 0 or closest to 0
 
         private double _valueGridStep;
+        private List<double> _valueGridValues = new List<double>();
+        private List<double> _valueGridLocations = new List<double>();
 
         private void ProcessData()
         {
@@ -230,10 +228,20 @@ namespace AmCharts.Windows.QuickCharts
 
                 AdjustMinMax(5); // TODO: add logic to set grid count automatically based on chart size
 
-                SetPointLocations();
+                SetValueGridValues();
+
+
+                SetLocations();
 
                 RenderGraphs();
             }
+        }
+
+        private void SetLocations()
+        {
+            SetPointLocations();
+            SetValueGridLocations();
+            _valueAxis.SetLocations(_valueGridLocations);
         }
 
         private void AdjustMinMax(int desiredGridCount)
@@ -359,6 +367,25 @@ namespace AmCharts.Windows.QuickCharts
                 {
                     graph.SetPointLocations(_locations[graph.ValueMemberPath], GetYCoordinate(_groundValue));
                 }
+            }
+        }
+
+        private void SetValueGridValues()
+        {
+            _valueGridValues.Clear();
+            for (double d = _adjustedMinimumValue; d <= _adjustedMaximumValue; d += _valueGridStep)
+            {
+                _valueGridValues.Add(d);
+            }
+            _valueAxis.SetValues(_valueGridValues);
+        }
+
+        private void SetValueGridLocations()
+        {
+            _valueGridLocations.Clear();
+            foreach (double value in _valueGridValues)
+            {
+                _valueGridLocations.Add(GetYCoordinate(value));
             }
         }
 

@@ -18,7 +18,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <amq:ValueAxis Grid.Column="0" Grid.Row="0" />
+                        <amq:ValueAxis x:Name="PART_ValueAxis" Grid.Column="0" Grid.Row="0" />
                         <amq:CategoryAxis Grid.Column="1" Grid.Row="1" />
 
                         <Border x:Name="PART_GraphCanvasDecorator" Grid.Column="1" Grid.Row="0">
