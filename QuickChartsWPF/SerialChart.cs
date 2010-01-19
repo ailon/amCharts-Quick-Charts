@@ -80,6 +80,7 @@ namespace AmCharts.Windows.QuickCharts
             AddGraphsToCanvas();
 
             _valueAxis = (ValueAxis)TreeHelper.TemplateFindName("PART_ValueAxis", this);
+            _valueGrid = (ValueGrid)TreeHelper.TemplateFindName("PART_ValueGrid", this);
         }
 
         void _graphCanvasDecorator_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -100,6 +101,7 @@ namespace AmCharts.Windows.QuickCharts
         }
 
         private ValueAxis _valueAxis;
+        private ValueGrid _valueGrid;
 
         public static readonly DependencyProperty DataSourceProperty = DependencyProperty.Register(
             "DataSource", typeof(IEnumerable), typeof(SerialChart), 
@@ -230,7 +232,6 @@ namespace AmCharts.Windows.QuickCharts
 
                 SetValueGridValues();
 
-
                 SetLocations();
 
                 RenderGraphs();
@@ -239,9 +240,19 @@ namespace AmCharts.Windows.QuickCharts
 
         private void SetLocations()
         {
-            SetPointLocations();
-            SetValueGridLocations();
-            _valueAxis.SetLocations(_valueGridLocations);
+            if (_valueAxis != null && _valueGrid != null)
+            {
+                // in Silverlight event sequence is different and SetValueGridValues() is called too early for the first time
+                if (_valueGridValues.Count == 0)
+                {
+                    SetValueGridValues();
+                }
+
+                SetPointLocations();
+                SetValueGridLocations();
+                _valueAxis.SetLocations(_valueGridLocations);
+                _valueGrid.SetLocations(_valueGridLocations);
+            }
         }
 
         private void AdjustMinMax(int desiredGridCount)
@@ -372,12 +383,15 @@ namespace AmCharts.Windows.QuickCharts
 
         private void SetValueGridValues()
         {
-            _valueGridValues.Clear();
-            for (double d = _adjustedMinimumValue; d <= _adjustedMaximumValue; d += _valueGridStep)
+            if (_valueAxis != null)
             {
-                _valueGridValues.Add(d);
+                _valueGridValues.Clear();
+                for (double d = _adjustedMinimumValue; d <= _adjustedMaximumValue; d += _valueGridStep)
+                {
+                    _valueGridValues.Add(d);
+                }
+                _valueAxis.SetValues(_valueGridValues);
             }
-            _valueAxis.SetValues(_valueGridValues);
         }
 
         private void SetValueGridLocations()

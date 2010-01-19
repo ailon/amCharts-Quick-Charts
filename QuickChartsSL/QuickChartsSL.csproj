@@ -70,11 +70,17 @@
     <Compile Include="..\QuickChartsWPF\SerialGraph.cs">
       <Link>SerialGraph.cs</Link>
     </Compile>
+    <Compile Include="..\QuickChartsWPF\TextBlockHelper.cs">
+      <Link>TextBlockHelper.cs</Link>
+    </Compile>
     <Compile Include="..\QuickChartsWPF\TreeHelper.cs">
       <Link>TreeHelper.cs</Link>
     </Compile>
     <Compile Include="..\QuickChartsWPF\ValueAxis.cs">
       <Link>ValueAxis.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\ValueGrid.cs">
+      <Link>ValueGrid.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -96,6 +102,11 @@
     </Page>
     <Page Include="..\QuickChartsWPF\Themes\ValueAxis.xaml">
       <Link>Themes\ValueAxis.xaml</Link>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\ValueGrid.xaml">
+      <Link>Themes\ValueGrid.xaml</Link>
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>

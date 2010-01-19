@@ -11,7 +11,7 @@
         <amq:SerialChart DataSource="{Binding Data}">
             <amq:SerialChart.Graphs>
                 <amq:LineGraph ValueMemberPath="val1" />
-                <amq:ColumnGraph ValueMemberPath="val2" />
+                <!--<amq:ColumnGraph ValueMemberPath="val2" />-->
                 <amq:LineGraph ValueMemberPath="val3" />
             </amq:SerialChart.Graphs>
         </amq:SerialChart>

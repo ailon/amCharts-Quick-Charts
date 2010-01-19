@@ -65,6 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\ValueGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\LineGraph.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,8 +108,10 @@
     </Compile>
     <Compile Include="SerialChart.cs" />
     <Compile Include="SerialGraph.cs" />
+    <Compile Include="TextBlockHelper.cs" />
     <Compile Include="TreeHelper.cs" />
     <Compile Include="ValueAxis.cs" />
+    <Compile Include="ValueGrid.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -1,0 +1,15 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts"
+    >
+    <Style TargetType="amq:ValueGrid">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="amq:ValueGrid">
+                    <Canvas x:Name="PART_GridCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

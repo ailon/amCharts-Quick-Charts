@@ -16,10 +16,7 @@ namespace AmCharts.Windows.QuickCharts
         {
             this.DefaultStyleKey = typeof(ValueAxis);
 
-            DataContext = this;
-
             VerticalAlignment = VerticalAlignment.Stretch;
-
         }
 
         private Canvas _valuesPanel;
@@ -42,12 +39,11 @@ namespace AmCharts.Windows.QuickCharts
             {
                 desiredSize.Height = constraint.Height;
             }
-            //desiredSize.Width = 50; // TODO: real calculations
             double maxBoxWidth = 0;
-            foreach (UIElement valueBox in _valueBoxes)
+            foreach (TextBlock valueBox in _valueBoxes)
             {
                 valueBox.Measure(new Size(constraint.Width - 8, constraint.Height));
-                maxBoxWidth = Math.Max(maxBoxWidth, valueBox.DesiredSize.Width);
+                maxBoxWidth = Math.Max(maxBoxWidth, valueBox.GetDesiredSize().Width);
             }
             desiredSize.Width = maxBoxWidth + 20;
 
@@ -56,10 +52,11 @@ namespace AmCharts.Windows.QuickCharts
 
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
-            foreach (UIElement valueBox in _valueBoxes)
+            foreach (TextBlock valueBox in _valueBoxes)
             {
-                double newTop = (double)valueBox.GetValue(Canvas.TopProperty) - valueBox.DesiredSize.Height / 2;
-                double newLeft = _valuesPanel.ActualWidth - valueBox.DesiredSize.Width - 3;
+                Size tbSize = valueBox.GetDesiredSize();
+                double newTop = (double)valueBox.GetValue(Canvas.TopProperty) - tbSize.Height / 2;
+                double newLeft = _valuesPanel.ActualWidth - tbSize.Width - 3;
                 valueBox.SetValue(Canvas.TopProperty, newTop);
                 valueBox.SetValue(Canvas.LeftProperty, newLeft);
             }
