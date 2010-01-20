@@ -65,6 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\CategoryAxis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\ValueGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,8 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingEvaluator.cs" />
-    <Compile Include="CategoryAxis.cs" />
     <Compile Include="ColumnGraph.cs" />
+    <Compile Include="CategoryAxis.cs" />
     <Compile Include="DataPathEventArgs.cs" />
     <Compile Include="DiscreetClearObservableCollection.cs" />
     <Compile Include="LineGraph.cs" />

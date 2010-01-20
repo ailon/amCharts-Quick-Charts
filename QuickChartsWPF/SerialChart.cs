@@ -81,6 +81,8 @@ namespace AmCharts.Windows.QuickCharts
 
             _valueAxis = (ValueAxis)TreeHelper.TemplateFindName("PART_ValueAxis", this);
             _valueGrid = (ValueGrid)TreeHelper.TemplateFindName("PART_ValueGrid", this);
+
+            _categoryAxis = (CategoryAxis)TreeHelper.TemplateFindName("PART_CategoryAxis", this);
         }
 
         void _graphCanvasDecorator_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -94,12 +96,7 @@ namespace AmCharts.Windows.QuickCharts
 
         private Size _plotAreaInnerSize;
 
-        public CategoryAxis CategoryAxis
-        {
-            get;
-            set;
-        }
-
+        private CategoryAxis _categoryAxis;
         private ValueAxis _valueAxis;
         private ValueGrid _valueGrid;
 
@@ -143,14 +140,21 @@ namespace AmCharts.Windows.QuickCharts
             ProcessData();
         }
 
+        public static readonly DependencyProperty CategoryValuePathProperty = DependencyProperty.Register(
+            "CategoryValuePath", typeof(string), typeof(SerialChart),
+            new PropertyMetadata(null)
+            );
+
         public string CategoryValuePath
         {
-            get;
-            set;
+            get { return (string)GetValue(CategoryValuePathProperty); }
+            set { SetValue(CategoryValuePathProperty, value); }
         }
 
         private Dictionary<string, List<double>> _values = new Dictionary<string, List<double>>();
         private Dictionary<string, PointCollection> _locations = new Dictionary<string, PointCollection>();
+        private List<string> _categoryValues = new List<string>();
+        private List<double> _categoryLocations = new List<double>();
 
         private double _minimumValue;
         private double _maximumValue;
@@ -161,6 +165,9 @@ namespace AmCharts.Windows.QuickCharts
         private double _valueGridStep;
         private List<double> _valueGridValues = new List<double>();
         private List<double> _valueGridLocations = new List<double>();
+
+        private List<string> _categoryGridValues = new List<string>();
+        private List<double> _categoryGridLocations = new List<double>();
 
         private void ProcessData()
         {
@@ -176,12 +183,31 @@ namespace AmCharts.Windows.QuickCharts
                 {
                     AddSingleStepValues(paths, bindingEvaluators, dataItem);
                 }
+
+                ProcessCategoryData();
             }
             else
             {
                 _values.Clear();
             }
             InvalidateMinMax();
+        }
+
+        private void ProcessCategoryData()
+        {
+            _categoryValues.Clear();
+            if (this.DataSource != null && !string.IsNullOrEmpty(CategoryValuePath))
+            {
+                BindingEvaluator eval = new BindingEvaluator(CategoryValuePath);
+                foreach (object dataItem in this.DataSource)
+                {
+                    _categoryValues.Add(eval.Eval(dataItem).ToString());
+                }
+            }
+            else
+            {
+                _categoryValues.Clear();
+            }
         }
 
         private void AddSingleStepValues(IEnumerable<string> paths, Dictionary<string, BindingEvaluator> bindingEvaluators, object dataItem)
@@ -240,7 +266,7 @@ namespace AmCharts.Windows.QuickCharts
 
         private void SetLocations()
         {
-            if (_valueAxis != null && _valueGrid != null)
+            if (_valueAxis != null && _valueGrid != null && _categoryAxis != null)
             {
                 // in Silverlight event sequence is different and SetValueGridValues() is called too early for the first time
                 if (_valueGridValues.Count == 0)
@@ -252,7 +278,59 @@ namespace AmCharts.Windows.QuickCharts
                 SetValueGridLocations();
                 _valueAxis.SetLocations(_valueGridLocations);
                 _valueGrid.SetLocations(_valueGridLocations);
+
+                SetCategoryGridLocations();
+                _categoryAxis.SetValues(_categoryGridValues);
+                _categoryAxis.SetLocations(_categoryGridLocations);
             }
+        }
+
+        private void SetCategoryGridLocations()
+        {
+            int gridCountHint = 5; // TODO: intelligent algorithm
+            int gridCount = GetCategoryGridCount(gridCountHint);
+            if (gridCount != 0)
+            {
+                int gridStep = _categoryValues.Count / gridCount;
+
+                _categoryGridValues.Clear();
+                _categoryGridLocations.Clear();
+
+                if (gridStep > 0)
+                {
+                    for (int i = 0; i < _categoryValues.Count; i += gridStep)
+                    {
+                        _categoryGridValues.Add(_categoryValues[i]);
+                        _categoryGridLocations.Add(_categoryLocations[i]);
+                    }
+                }
+            }
+        }
+
+        private int GetCategoryGridCount(int gridCountHint)
+        {
+            int gridCount = gridCountHint;
+            if (gridCountHint >= _categoryValues.Count)
+            {
+                gridCount = _categoryValues.Count;
+            }
+            else
+            {
+                int hint = gridCountHint;
+                while ((_categoryValues.Count - 1) % hint != 0 && hint > 1)
+                    hint--;
+
+                if (hint == 1)
+                {
+                    hint = gridCountHint;
+                    while ((_categoryValues.Count - 1) % hint != 0 && hint < Math.Min(_categoryValues.Count, gridCountHint * 2))
+                        hint++;
+                }
+
+                if (hint < gridCountHint * 2)
+                    gridCount = hint;
+            }
+            return gridCount;
         }
 
         private void AdjustMinMax(int desiredGridCount)
@@ -379,11 +457,23 @@ namespace AmCharts.Windows.QuickCharts
                     graph.SetPointLocations(_locations[graph.ValueMemberPath], GetYCoordinate(_groundValue));
                 }
             }
+
+            SetCategoryLocations();
+        }
+
+        private void SetCategoryLocations()
+        {
+            _categoryLocations.Clear();
+
+            for (int i = 0; i < _categoryValues.Count; i++)
+            {
+                _categoryLocations.Add(GetXCoordinate(i));
+            }
         }
 
         private void SetValueGridValues()
         {
-            if (_valueAxis != null)
+            if (_valueAxis != null && _valueGridStep > 0)
             {
                 _valueGridValues.Clear();
                 for (double d = _adjustedMinimumValue; d <= _adjustedMaximumValue; d += _valueGridStep)

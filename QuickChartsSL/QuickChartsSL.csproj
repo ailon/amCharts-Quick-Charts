@@ -85,6 +85,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="..\QuickChartsWPF\Themes\CategoryAxis.xaml">
+      <Link>Themes\CategoryAxis.xaml</Link>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\QuickChartsWPF\Themes\ColumnGraph.xaml">
       <Link>Themes\ColumnGraph.xaml</Link>
       <Generator>MSBuild:MarkupCompilePass1</Generator>

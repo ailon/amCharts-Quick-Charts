@@ -1,0 +1,28 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts"
+    >
+    <Style TargetType="amq:CategoryAxis">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="amq:CategoryAxis">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Rectangle x:Name="PART_AxisLine" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                              Fill="Black" Height="5"
+                              />
+                        <Canvas x:Name="PART_TickPanel" Grid.Row="1" Height="5" VerticalAlignment="Stretch" />
+                        <Canvas x:Name="PART_ValuesPanel" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
