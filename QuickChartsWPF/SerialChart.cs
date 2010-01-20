@@ -426,8 +426,9 @@ namespace AmCharts.Windows.QuickCharts
         private double GetXCoordinate(int index)
         {
             int count = _values[_values.Keys.First()].Count;
+            double step = _plotAreaInnerSize.Width / count;
 
-            return (_plotAreaInnerSize.Width / (count - 1)) * index;
+            return step * index + step / 2;
         }
 
         private double GetYCoordinate(double value)
