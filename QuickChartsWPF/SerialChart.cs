@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
@@ -45,7 +46,9 @@ namespace AmCharts.Windows.QuickCharts
         private void AddGraphToCanvas(SerialGraph graph)
         {
             if (_graphCanvas != null && !_graphCanvas.Children.Contains(graph))
+            {
                 _graphCanvas.Children.Add(graph);
+            }
         }
 
         private void RemoveGraphFromCanvas(SerialGraph graph)
@@ -83,6 +86,9 @@ namespace AmCharts.Windows.QuickCharts
             _valueGrid = (ValueGrid)TreeHelper.TemplateFindName("PART_ValueGrid", this);
 
             _categoryAxis = (CategoryAxis)TreeHelper.TemplateFindName("PART_CategoryAxis", this);
+
+            _legend = (Legend)TreeHelper.TemplateFindName("PART_Legend", this);
+            _legend.LegendItemsSource = this.Graphs.Cast<ILegendItem>(); // TODO: handle changes in Graphs
         }
 
         void _graphCanvasDecorator_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -99,6 +105,8 @@ namespace AmCharts.Windows.QuickCharts
         private CategoryAxis _categoryAxis;
         private ValueAxis _valueAxis;
         private ValueGrid _valueGrid;
+
+        private Legend _legend;
 
         public static readonly DependencyProperty DataSourceProperty = DependencyProperty.Register(
             "DataSource", typeof(IEnumerable), typeof(SerialChart), 

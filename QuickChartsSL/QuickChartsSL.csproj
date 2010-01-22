@@ -61,6 +61,15 @@
     <Compile Include="..\QuickChartsWPF\DiscreetClearObservableCollection.cs">
       <Link>DiscreetClearObservableCollection.cs</Link>
     </Compile>
+    <Compile Include="..\QuickChartsWPF\ILegendItem.cs">
+      <Link>ILegendItem.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\Legend.cs">
+      <Link>Legend.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\LegendItem.cs">
+      <Link>LegendItem.cs</Link>
+    </Compile>
     <Compile Include="..\QuickChartsWPF\LineGraph.cs">
       <Link>LineGraph.cs</Link>
     </Compile>
@@ -92,6 +101,11 @@
     </Page>
     <Page Include="..\QuickChartsWPF\Themes\ColumnGraph.xaml">
       <Link>Themes\ColumnGraph.xaml</Link>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\Legend.xaml">
+      <Link>Themes\Legend.xaml</Link>
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>

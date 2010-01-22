@@ -3,16 +3,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts"
     Title="Window1" Height="300" Width="300" Loaded="Window_Loaded">
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <amq:SerialChart DataSource="{Binding Data}" CategoryValuePath="cat1">
             <amq:SerialChart.Graphs>
-                <amq:LineGraph ValueMemberPath="val1" />
-                <!--<amq:ColumnGraph ValueMemberPath="val2" />-->
-                <amq:LineGraph ValueMemberPath="val3" />
+                <amq:LineGraph ValueMemberPath="val1" Title="Line #1" Brush="Red" />
+                <amq:ColumnGraph ValueMemberPath="val2" Title="Column #1" />
+                <amq:LineGraph ValueMemberPath="val3" Title="Line #2" />
             </amq:SerialChart.Graphs>
         </amq:SerialChart>
         

@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace AmCharts.Windows.QuickCharts
 {
-    public abstract class SerialGraph : Control
+    public abstract class SerialGraph : Control, ILegendItem
     {
         public event EventHandler<DataPathEventArgs> ValueMemberPathChanged;
 
@@ -67,5 +67,26 @@ namespace AmCharts.Windows.QuickCharts
             }
         }
 
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
+            "Title", typeof(string), typeof(SerialGraph),
+            new PropertyMetadata(null)
+            );
+
+        public string Title
+        {
+            get { return (string)GetValue(SerialGraph.TitleProperty); }
+            set { SetValue(SerialGraph.TitleProperty, value); }
+        }
+
+        public static readonly DependencyProperty BrushProperty = DependencyProperty.Register(
+            "Brush", typeof(Brush), typeof(SerialGraph),
+            new PropertyMetadata(null)
+            );
+
+        public Brush Brush
+        {
+            get { return (Brush)GetValue(SerialGraph.BrushProperty); }
+            set { SetValue(SerialGraph.BrushProperty, value); }
+        }
     }
 }
