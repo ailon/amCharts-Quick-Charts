@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Input;
 
 namespace AmCharts.Windows.QuickCharts
 {
@@ -30,6 +31,7 @@ namespace AmCharts.Windows.QuickCharts
                 {
                     graph.ValueMemberPathChanged -= OnGraphValueMemberPathChanged;
                     RemoveGraphFromCanvas(graph);
+                    RemoveIndicator(graph);
                 }
             }
 
@@ -39,7 +41,40 @@ namespace AmCharts.Windows.QuickCharts
                 {
                     graph.ValueMemberPathChanged += new EventHandler<DataPathEventArgs>(OnGraphValueMemberPathChanged);
                     AddGraphToCanvas(graph);
+                    AddIndicator(graph);
                 }
+            }
+        }
+
+        private void AddIndicator(SerialGraph graph)
+        {
+            Indicator indicator = new Indicator();
+            _indicators.Add(graph, indicator);
+            AddIndicatorToCanvas(indicator);
+        }
+
+        private void AddIndicatorToCanvas(Indicator indicator)
+        {
+            if (_graphCanvas != null)
+            {
+                _graphCanvas.Children.Add(indicator);
+            }
+        }
+
+        private void RemoveIndicator(SerialGraph graph)
+        {
+            if (_graphCanvas != null)
+            {
+                _graphCanvas.Children.Remove(_indicators[graph]);
+            }
+            _indicators.Remove(graph);
+        }
+
+        private void AddIndicatorsToCanvas()
+        {
+            foreach (Indicator indicator in _indicators.Values)
+            {
+                AddIndicatorToCanvas(indicator);
             }
         }
 
@@ -74,6 +109,7 @@ namespace AmCharts.Windows.QuickCharts
             set { throw new System.NotSupportedException("Setting Graphs collection is not supported"); }
         }
 
+        private Dictionary<SerialGraph, Indicator> _indicators = new Dictionary<SerialGraph, Indicator>();
 
         public override void OnApplyTemplate()
         {
@@ -81,6 +117,11 @@ namespace AmCharts.Windows.QuickCharts
             _graphCanvasDecorator.SizeChanged += new SizeChangedEventHandler(_graphCanvasDecorator_SizeChanged);
             _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
             AddGraphsToCanvas();
+            AddIndicatorsToCanvas();
+
+            _graphCanvas.MouseEnter += new MouseEventHandler(_graphCanvas_MouseEnter);
+            _graphCanvas.MouseMove += new System.Windows.Input.MouseEventHandler(_graphCanvas_MouseMove);
+            _graphCanvas.MouseLeave += new MouseEventHandler(_graphCanvas_MouseLeave);
 
             _valueAxis = (ValueAxis)TreeHelper.TemplateFindName("PART_ValueAxis", this);
             _valueGrid = (ValueGrid)TreeHelper.TemplateFindName("PART_ValueGrid", this);
@@ -89,6 +130,41 @@ namespace AmCharts.Windows.QuickCharts
 
             _legend = (Legend)TreeHelper.TemplateFindName("PART_Legend", this);
             _legend.LegendItemsSource = this.Graphs.Cast<ILegendItem>(); // TODO: handle changes in Graphs
+        }
+
+        void _graphCanvas_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Point position = e.GetPosition(_graphCanvas);
+            PositionIndicators(position);
+        }
+
+        void _graphCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point position = e.GetPosition(_graphCanvas);
+            PositionIndicators(position);
+        }
+
+        void _graphCanvas_MouseLeave(object sender, MouseEventArgs e)
+        {
+            HideIndicators();
+        }
+
+        private void PositionIndicators(Point position)
+        {
+            int index = GetIndexByCoordinate(position.X);
+            foreach (SerialGraph graph in _graphs)
+            {
+                _indicators[graph].SetPosition(_locations[graph.ValueMemberPath][index]);
+                _indicators[graph].Visibility = Visibility.Visible;
+            }
+        }
+
+        private void HideIndicators()
+        {
+            foreach (SerialGraph graph in _graphs)
+            {
+                _indicators[graph].Visibility = Visibility.Collapsed;
+            }
         }
 
         void _graphCanvasDecorator_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -442,6 +518,18 @@ namespace AmCharts.Windows.QuickCharts
         private double GetYCoordinate(double value)
         {
             return _plotAreaInnerSize.Height - _plotAreaInnerSize.Height * ((value - _adjustedMinimumValue) / (_adjustedMaximumValue - _adjustedMinimumValue));
+        }
+
+        private int GetIndexByCoordinate(double x)
+        {
+            int count = _values[_values.Keys.First()].Count;
+            double step = _plotAreaInnerSize.Width / count;
+
+            int index = (int)Math.Round((x - step / 2) / step);
+            index = Math.Max(0, index);
+            index = Math.Min(count - 1, index);
+
+            return index;
         }
 
         private void SetPointLocations()

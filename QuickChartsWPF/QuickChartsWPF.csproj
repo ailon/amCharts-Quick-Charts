@@ -69,6 +69,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Indicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Legend.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,6 +105,7 @@
     <Compile Include="DataPathEventArgs.cs" />
     <Compile Include="DiscreetClearObservableCollection.cs" />
     <Compile Include="ILegendItem.cs" />
+    <Compile Include="Indicator.cs" />
     <Compile Include="Legend.cs" />
     <Compile Include="LegendItem.cs" />
     <Compile Include="LineGraph.cs" />

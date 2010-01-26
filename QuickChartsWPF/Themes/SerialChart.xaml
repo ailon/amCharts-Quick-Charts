@@ -23,7 +23,7 @@
 
                         <amq:ValueGrid x:Name="PART_ValueGrid" Grid.Column="1" Grid.Row="0" />
                         <Border x:Name="PART_GraphCanvasDecorator" Grid.Column="1" Grid.Row="0">
-                            <Canvas x:Name="PART_GraphCanvas" />
+                            <Canvas x:Name="PART_GraphCanvas" Background="Transparent" />
                         </Border>
                         
                         <amq:Legend x:Name="PART_Legend" Grid.Column="2" Grid.Row="0" />

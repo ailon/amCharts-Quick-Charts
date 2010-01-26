@@ -64,6 +64,9 @@
     <Compile Include="..\QuickChartsWPF\ILegendItem.cs">
       <Link>ILegendItem.cs</Link>
     </Compile>
+    <Compile Include="..\QuickChartsWPF\Indicator.cs">
+      <Link>Indicator.cs</Link>
+    </Compile>
     <Compile Include="..\QuickChartsWPF\Legend.cs">
       <Link>Legend.cs</Link>
     </Compile>
@@ -101,6 +104,11 @@
     </Page>
     <Page Include="..\QuickChartsWPF\Themes\ColumnGraph.xaml">
       <Link>Themes\ColumnGraph.xaml</Link>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\Indicator.xaml">
+      <Link>Themes\Indicator.xaml</Link>
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>
