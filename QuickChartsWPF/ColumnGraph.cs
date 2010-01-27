@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Windows.Data;
 
 namespace AmCharts.Windows.QuickCharts
 {
@@ -17,6 +18,15 @@ namespace AmCharts.Windows.QuickCharts
             _columnGraph = new Path();
             _columnGraphGeometry = new PathGeometry();
             _columnGraph.Data = _columnGraphGeometry;
+
+            BindBrush();
+        }
+
+        private void BindBrush()
+        {
+            Binding brushBinding = new Binding("Brush");
+            brushBinding.Source = this;
+            _columnGraph.SetBinding(Path.FillProperty, brushBinding);
         }
 
         private Canvas _graphCanvas;
@@ -28,10 +38,6 @@ namespace AmCharts.Windows.QuickCharts
             _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
             _graphCanvas.Children.Add(_columnGraph);
 
-            // TODO: REMOVE TEMP SETTINGS BELOW
-            _columnGraph.Stroke = new SolidColorBrush(Colors.Red);
-            _columnGraph.StrokeThickness = 2;
-            _columnGraph.Fill = new SolidColorBrush(Colors.Gray);
         }
 
         public override void Render()

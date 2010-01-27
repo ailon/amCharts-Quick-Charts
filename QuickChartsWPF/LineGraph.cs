@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Windows.Data;
 
 namespace AmCharts.Windows.QuickCharts
 {
@@ -15,6 +16,18 @@ namespace AmCharts.Windows.QuickCharts
         {
             this.DefaultStyleKey = typeof(LineGraph);
             _lineGraph = new Polyline();
+
+            BindBrush();
+            
+            // TODO: REMOVE TEMP SETTINGS BELOW
+            _lineGraph.StrokeThickness = 3;
+        }
+
+        private void BindBrush()
+        {
+            Binding brushBinding = new Binding("Brush");
+            brushBinding.Source = this;
+            _lineGraph.SetBinding(Polyline.StrokeProperty, brushBinding);
         }
 
         private Canvas _graphCanvas;
@@ -24,10 +37,6 @@ namespace AmCharts.Windows.QuickCharts
         {
             _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
             _graphCanvas.Children.Add(_lineGraph);
-
-            // TODO: REMOVE TEMP SETTINGS BELOW
-            _lineGraph.Stroke = new SolidColorBrush(Colors.Blue);
-            _lineGraph.StrokeThickness = 3;
         }
 
         public override void Render()
