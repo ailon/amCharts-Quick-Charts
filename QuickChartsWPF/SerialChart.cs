@@ -142,11 +142,23 @@ namespace AmCharts.Windows.QuickCharts
         {
             Point position = e.GetPosition(_graphCanvas);
             PositionIndicators(position);
+            SetToolTips(position);
         }
 
         void _graphCanvas_MouseLeave(object sender, MouseEventArgs e)
         {
             HideIndicators();
+        }
+
+        private void SetToolTips(Point position)
+        {
+            int index = GetIndexByCoordinate(position.X);
+            for (int i = 0; i < _graphs.Count; i++)
+            {
+                string tooltipContent = _graphs[i].Title + ": " + _categoryValues[index] + " / " + _values[_graphs[i].ValueMemberPath][index].ToString();
+                ToolTipService.SetToolTip(_indicators[_graphs[i]], tooltipContent);
+                ToolTipService.SetToolTip(_graphs[i], tooltipContent);
+            }
         }
 
         private void PositionIndicators(Point position)
