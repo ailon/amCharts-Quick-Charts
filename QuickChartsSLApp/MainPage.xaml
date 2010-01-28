@@ -13,7 +13,7 @@
             <amq:SerialChart.Graphs>
                 <amq:LineGraph ValueMemberPath="val1" Title="Line #1" />
                 <amq:ColumnGraph ValueMemberPath="val2" Title="Column #2" Brush="Aqua" />
-                <amq:LineGraph ValueMemberPath="val3" Title="Line #3" />
+                <amq:LineGraph ValueMemberPath="val3" Title="Line #3" StrokeThickness="18" />
             </amq:SerialChart.Graphs>
         </amq:SerialChart>
 

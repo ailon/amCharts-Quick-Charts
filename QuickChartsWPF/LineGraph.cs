@@ -18,9 +18,7 @@ namespace AmCharts.Windows.QuickCharts
             _lineGraph = new Polyline();
 
             BindBrush();
-            
-            // TODO: REMOVE TEMP SETTINGS BELOW
-            _lineGraph.StrokeThickness = 3;
+            BindStrokeThickness();
         }
 
         private void BindBrush()
@@ -28,6 +26,13 @@ namespace AmCharts.Windows.QuickCharts
             Binding brushBinding = new Binding("Brush");
             brushBinding.Source = this;
             _lineGraph.SetBinding(Polyline.StrokeProperty, brushBinding);
+        }
+
+        private void BindStrokeThickness()
+        {
+            Binding thicknessBinding = new Binding("StrokeThickness");
+            thicknessBinding.Source = this;
+            _lineGraph.SetBinding(Polyline.StrokeThicknessProperty, thicknessBinding);
         }
 
         private Canvas _graphCanvas;
@@ -43,5 +48,18 @@ namespace AmCharts.Windows.QuickCharts
         {
             _lineGraph.Points = Locations;
         }
+
+        public static readonly DependencyProperty StrokeThicknessProperty = DependencyProperty.Register(
+            "StrokeThickness", typeof(double), typeof(LineGraph),
+            new PropertyMetadata(2.0)
+            );
+
+        public double StrokeThickness
+        {
+            get { return (double)GetValue(LineGraph.StrokeThicknessProperty); }
+            set { SetValue(LineGraph.StrokeThicknessProperty, value); }
+        }
+
+
     }
 }
