@@ -91,8 +91,9 @@ namespace AmCharts.Windows.QuickCharts
         private void SetColumnSegments(int index)
         {
             // TODO: column width allocation
-            double left = Locations[index].X - XStep / 2;
-            double right = left + XStep;
+            double width = XStep * ColumnWidthAllocation;
+            double left = Locations[index].X - width / 2;
+            double right = left + width;
             double y1 = GroundLevel;
             double y2 = Locations[index].Y;
 
@@ -101,6 +102,17 @@ namespace AmCharts.Windows.QuickCharts
             (_columnGraphGeometry.Figures[index].Segments[1] as LineSegment).Point = new Point(right, y2);
             (_columnGraphGeometry.Figures[index].Segments[2] as LineSegment).Point = new Point(left, y2);
             (_columnGraphGeometry.Figures[index].Segments[3] as LineSegment).Point = new Point(left, y1);
+        }
+
+        public static readonly DependencyProperty ColumnWidthAllocationProperty = DependencyProperty.Register(
+            "ColumnWidthAllocation", typeof(double), typeof(ColumnGraph),
+            new PropertyMetadata(0.8)
+            );
+
+        public double ColumnWidthAllocation
+        {
+            get { return (double)GetValue(ColumnGraph.ColumnWidthAllocationProperty); }
+            set { SetValue(ColumnGraph.ColumnWidthAllocationProperty, value); }
         }
 
     }
