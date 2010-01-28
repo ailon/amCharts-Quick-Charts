@@ -15,7 +15,7 @@
                         </Grid.RowDefinitions>
 
                         <Rectangle x:Name="PART_AxisLine" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch"
-                              Fill="Black" Height="5"
+                              Fill="Black" Height="2"
                               />
                         <Canvas x:Name="PART_TickPanel" Grid.Row="1" Height="5" VerticalAlignment="Stretch" />
                         <Canvas x:Name="PART_ValuesPanel" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />

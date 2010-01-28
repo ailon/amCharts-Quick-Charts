@@ -186,7 +186,55 @@ namespace AmCharts.Windows.QuickCharts
         void _graphCanvasDecorator_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             _plotAreaInnerSize = new Size(_graphCanvasDecorator.ActualWidth, _graphCanvasDecorator.ActualHeight);
+            AdjustGridCount();
             SetLocations();
+        }
+
+        private void AdjustGridCount()
+        {
+            AdjustValueGridCount();
+            AdjustCategoryGridCount();
+        }
+
+        private void AdjustCategoryGridCount()
+        {
+            int oldCount = _categoryGridCount;
+            _categoryGridCount = (int)(_plotAreaInnerSize.Width / (MinimumCategoryGridStep * 1.1));
+            _categoryGridCount = Math.Max(1, _categoryGridCount);
+
+            if (oldCount != _categoryGridCount)
+            {
+                if (_categoryGridCount > 1)
+                {
+                    _categoryAxis.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    _categoryAxis.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void AdjustValueGridCount()
+        {
+            int oldCount = _valueGridCount;
+            _valueGridCount = (int)(_plotAreaInnerSize.Height / (MinimumValueGridStep * 1.1));
+            _valueGridCount = Math.Max(1, _valueGridCount);
+
+            if (oldCount != _valueGridCount)
+            {
+                if (_valueGridCount > 1)
+                {
+                    _valueAxis.Visibility = Visibility.Visible;
+                    _valueGrid.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    _valueAxis.Visibility = Visibility.Collapsed;
+                    _valueGrid.Visibility = Visibility.Collapsed;
+                }
+                SetMinMax();
+            }
         }
 
         private Border _graphCanvasDecorator;
@@ -354,7 +402,7 @@ namespace AmCharts.Windows.QuickCharts
                 _maximumValue = (from vs in _values.Values
                                  select vs.Max()).Max();
 
-                AdjustMinMax(5); // TODO: add logic to set grid count automatically based on chart size
+                AdjustMinMax(_valueGridCount); // TODO: add logic to set grid count automatically based on chart size
 
                 SetValueGridValues();
 
@@ -376,10 +424,12 @@ namespace AmCharts.Windows.QuickCharts
 
                 SetPointLocations();
                 SetValueGridLocations();
+
                 _valueAxis.SetLocations(_valueGridLocations);
                 _valueGrid.SetLocations(_valueGridLocations);
 
                 SetCategoryGridLocations();
+
                 _categoryAxis.SetValues(_categoryGridValues);
                 _categoryAxis.SetLocations(_categoryGridLocations);
             }
@@ -387,8 +437,7 @@ namespace AmCharts.Windows.QuickCharts
 
         private void SetCategoryGridLocations()
         {
-            int gridCountHint = 5; // TODO: intelligent algorithm
-            int gridCount = GetCategoryGridCount(gridCountHint);
+            int gridCount = GetCategoryGridCount(_categoryGridCount);
             if (gridCount != 0)
             {
                 int gridStep = _categoryValues.Count / gridCount;
@@ -504,6 +553,7 @@ namespace AmCharts.Windows.QuickCharts
             }
 
             _valueGridStep = step;
+            _valueGridCount = (int)((max - min) / step);
 
             _adjustedMinimumValue = min;
             _adjustedMaximumValue = max;
@@ -641,5 +691,32 @@ namespace AmCharts.Windows.QuickCharts
         {
             get { return _presetBrushes; }
         }
+
+
+        private int _valueGridCount = 5;
+        private int _categoryGridCount = 5;
+
+        public static readonly DependencyProperty MinimumValueGridStepProperty = DependencyProperty.Register(
+            "MinimumValueGridStep", typeof(double), typeof(SerialChart),
+            new PropertyMetadata(30.0)
+            );
+
+        public double MinimumValueGridStep
+        {
+            get { return (double)GetValue(SerialChart.MinimumValueGridStepProperty); }
+            set { SetValue(SerialChart.MinimumValueGridStepProperty, value); }
+        }
+
+        public static readonly DependencyProperty MinimumCategoryGridStepProperty = DependencyProperty.Register(
+            "MinimumCategoryGridStep", typeof(double), typeof(SerialChart),
+            new PropertyMetadata(70.0)
+            );
+
+        public double MinimumCategoryGridStep
+        {
+            get { return (double)GetValue(SerialChart.MinimumCategoryGridStepProperty); }
+            set { SetValue(SerialChart.MinimumCategoryGridStepProperty, value); }
+        }
+
     }
 }

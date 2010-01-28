@@ -18,7 +18,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <amq:ValueAxis x:Name="PART_ValueAxis" Grid.Column="0" Grid.Row="0" />
+                        <amq:ValueAxis x:Name="PART_ValueAxis" Grid.Column="0" Grid.Row="0" Margin="0,0,0,-2" />
                         <amq:CategoryAxis x:Name="PART_CategoryAxis" Grid.Column="1" Grid.Row="1" />
 
                         <amq:ValueGrid x:Name="PART_ValueGrid" Grid.Column="1" Grid.Row="0" />
