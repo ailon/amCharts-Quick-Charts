@@ -136,7 +136,7 @@ namespace AmCharts.Windows.QuickCharts
 
         private void SetValueBoxText(int index)
         {
-            _valueBoxes[index].Text = _values[index].ToString(); // TODO: formatting
+            _valueBoxes[index].Text = string.IsNullOrEmpty(ValueFormatString) ? _values[index].ToString() : _values[index].ToString(ValueFormatString);
         }
 
         private void SetObjectLocations()
@@ -147,6 +147,18 @@ namespace AmCharts.Windows.QuickCharts
                 _valueTicks[i].SetValue(Canvas.TopProperty, _locations[i]);
             }
         }
+
+        public static readonly DependencyProperty ValueFormatStringProperty = DependencyProperty.Register(
+            "ValueFormatString", typeof(string), typeof(ValueAxis),
+            new PropertyMetadata(null)
+            );
+
+        public string ValueFormatString
+        {
+            get { return (string)GetValue(ValueFormatStringProperty); }
+            set { SetValue(ValueFormatStringProperty, value); }
+        }
+
 
     }
 

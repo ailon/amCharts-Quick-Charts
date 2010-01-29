@@ -142,6 +142,10 @@ namespace AmCharts.Windows.QuickCharts
             _valueAxis = (ValueAxis)TreeHelper.TemplateFindName("PART_ValueAxis", this);
             _valueGrid = (ValueGrid)TreeHelper.TemplateFindName("PART_ValueGrid", this);
 
+            Binding formatBinding = new Binding("ValueFormatString");
+            formatBinding.Source = this;
+            _valueAxis.SetBinding(ValueAxis.ValueFormatStringProperty, formatBinding);
+
             _categoryAxis = (CategoryAxis)TreeHelper.TemplateFindName("PART_CategoryAxis", this);
 
             _legend = (Legend)TreeHelper.TemplateFindName("PART_Legend", this);
@@ -171,7 +175,8 @@ namespace AmCharts.Windows.QuickCharts
             int index = GetIndexByCoordinate(position.X);
             for (int i = 0; i < _graphs.Count; i++)
             {
-                string tooltipContent = _graphs[i].Title + ": " + _categoryValues[index] + " / " + _values[_graphs[i].ValueMemberPath][index].ToString();
+                string tooltipContent = _graphs[i].Title + ": " + _categoryValues[index] + " | "
+                    + (string.IsNullOrEmpty(ValueFormatString) ? _values[_graphs[i].ValueMemberPath][index].ToString() : _values[_graphs[i].ValueMemberPath][index].ToString(ValueFormatString));
                 ToolTipService.SetToolTip(_indicators[_graphs[i]], tooltipContent);
                 ToolTipService.SetToolTip(_graphs[i], tooltipContent);
             }
@@ -779,6 +784,17 @@ namespace AmCharts.Windows.QuickCharts
         {
             get { return (Brush)GetValue(SerialChart.GridStrokeProperty); }
             set { SetValue(SerialChart.GridStrokeProperty, value); }
+        }
+
+        public static readonly DependencyProperty ValueFormatStringProperty = DependencyProperty.Register(
+            "ValueFormatString", typeof(string), typeof(SerialChart),
+            new PropertyMetadata(null)
+            );
+
+        public string ValueFormatString
+        {
+            get { return (string)GetValue(SerialChart.ValueFormatStringProperty); }
+            set { SetValue(SerialChart.ValueFormatStringProperty, value); }
         }
 
 
