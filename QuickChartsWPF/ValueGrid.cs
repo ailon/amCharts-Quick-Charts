@@ -89,7 +89,7 @@ namespace AmCharts.Windows.QuickCharts
             for (int i = count; i < _locations.Count; i++)
             {
                 Line line = new Line();
-                line.Stroke = new SolidColorBrush(Colors.Gray); // TODO: customization
+                line.Stroke = Foreground;
                 line.StrokeThickness = 1;
                 line.X1 = 0;
                 _gridLines.Add(line);

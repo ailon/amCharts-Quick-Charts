@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Input;
+using System.Windows.Data;
 
 namespace AmCharts.Windows.QuickCharts
 {
@@ -21,6 +22,8 @@ namespace AmCharts.Windows.QuickCharts
             this._graphs.CollectionChanged += new NotifyCollectionChangedEventHandler(_graphs_CollectionChanged);
 
             this.LayoutUpdated += new EventHandler(OnLayoutUpdated);
+
+            Padding = new Thickness(20);
         }
 
         void _graphs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -53,6 +56,15 @@ namespace AmCharts.Windows.QuickCharts
         private void AddIndicator(SerialGraph graph)
         {
             Indicator indicator = new Indicator();
+
+            Binding fillBinding = new Binding("Brush");
+            fillBinding.Source = graph;
+            indicator.SetBinding(Indicator.FillProperty, fillBinding);
+
+            Binding strokeBinding = new Binding("PlotAreaBackground");
+            strokeBinding.Source = this;
+            indicator.SetBinding(Indicator.StrokeProperty, strokeBinding);
+
             _indicators.Add(graph, indicator);
             AddIndicatorToCanvas(indicator);
         }
@@ -717,6 +729,58 @@ namespace AmCharts.Windows.QuickCharts
             get { return (double)GetValue(SerialChart.MinimumCategoryGridStepProperty); }
             set { SetValue(SerialChart.MinimumCategoryGridStepProperty, value); }
         }
+
+
+        /// PLOT AREA
+
+        public static readonly DependencyProperty PlotAreaBackgroundProperty = DependencyProperty.Register(
+            "PlotAreaBackground", typeof(Brush), typeof(SerialChart),
+            new PropertyMetadata(new SolidColorBrush(Colors.White))
+            );
+
+        public Brush PlotAreaBackground
+        {
+            get { return (Brush)GetValue(SerialChart.PlotAreaBackgroundProperty); }
+            set { SetValue(SerialChart.PlotAreaBackgroundProperty, value); }
+        }
+
+        /// LEGEND
+
+        public static readonly DependencyProperty LegendVisibilityProperty = DependencyProperty.Register(
+            "LegendVisibility", typeof(Visibility), typeof(SerialChart),
+            new PropertyMetadata(Visibility.Visible)
+            );
+
+        public Visibility LegendVisibility
+        {
+            get { return (Visibility)GetValue(SerialChart.LegendVisibilityProperty); }
+            set { SetValue(SerialChart.LegendVisibilityProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty AxisForegroundProperty = DependencyProperty.Register(
+            "AxisForeground", typeof(Brush), typeof(SerialChart),
+            new PropertyMetadata(new SolidColorBrush(Colors.Black))
+            );
+
+        public Brush AxisForeground
+        {
+            get { return (Brush)GetValue(SerialChart.AxisForegroundProperty); }
+            set { SetValue(SerialChart.AxisForegroundProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty GridStrokeProperty = DependencyProperty.Register(
+            "GridStroke", typeof(Brush), typeof(SerialChart),
+            new PropertyMetadata(new SolidColorBrush(Colors.LightGray))
+            );
+
+        public Brush GridStroke
+        {
+            get { return (Brush)GetValue(SerialChart.GridStrokeProperty); }
+            set { SetValue(SerialChart.GridStrokeProperty, value); }
+        }
+
 
     }
 }

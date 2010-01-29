@@ -8,7 +8,13 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <amq:SerialChart DataSource="{Binding Data}" CategoryValuePath="cat1">
+        <amq:SerialChart DataSource="{Binding Data}" 
+                         CategoryValuePath="cat1" 
+                         Background="White"
+                         BorderBrush="Black"
+                         BorderThickness="1"
+                         AxisForeground="Magenta"
+                         >
             <amq:SerialChart.Graphs>
                 <amq:LineGraph ValueMemberPath="val1" Title="Line #1" />
                 <amq:ColumnGraph ValueMemberPath="val2" Title="Column #1" ColumnWidthAllocation="0.2" />

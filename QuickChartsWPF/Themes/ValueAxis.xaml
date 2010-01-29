@@ -18,7 +18,7 @@
                         <Canvas x:Name="PART_TickPanel" Grid.Column="1" Width="5" VerticalAlignment="Stretch" />
 
                         <Rectangle x:Name="PART_AxisLine" Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Right"
-                              Fill="Black" Width="2"
+                              Fill="{TemplateBinding Foreground}" Width="2"
                               /> 
                     </Grid>
                 </ControlTemplate>

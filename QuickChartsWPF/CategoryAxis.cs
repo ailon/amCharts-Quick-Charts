@@ -112,7 +112,7 @@ namespace AmCharts.Windows.QuickCharts
                 _valueTicks.Add(
                     new Line() 
                     { 
-                        Stroke = new SolidColorBrush(Colors.Black), // TODO: real values
+                        Stroke = Foreground,
                         StrokeThickness = 1,
                         Y1 = 0, Y2 = 5
                     });
