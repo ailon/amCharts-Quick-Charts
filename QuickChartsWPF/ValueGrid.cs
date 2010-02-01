@@ -18,10 +18,10 @@ namespace AmCharts.Windows.QuickCharts
             VerticalAlignment = VerticalAlignment.Stretch;
             HorizontalAlignment = HorizontalAlignment.Stretch;
 
-            this.LayoutUpdated += new EventHandler(ValueGrid_LayoutUpdated);
+            this.LayoutUpdated += new EventHandler(OnValueGridLayoutUpdated);
         }
 
-        void ValueGrid_LayoutUpdated(object sender, EventArgs e)
+        void OnValueGridLayoutUpdated(object sender, EventArgs e)
         {
             SetupLines();
         }

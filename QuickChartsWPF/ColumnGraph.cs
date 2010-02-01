@@ -90,7 +90,6 @@ namespace AmCharts.Windows.QuickCharts
 
         private void SetColumnSegments(int index)
         {
-            // TODO: column width allocation
             double width = XStep * ColumnWidthAllocation;
             double left = Locations[index].X - width / 2;
             double right = left + width;

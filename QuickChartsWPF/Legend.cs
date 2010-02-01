@@ -29,7 +29,7 @@ namespace AmCharts.Windows.QuickCharts
             {
                 if (value is INotifyCollectionChanged)
                 {
-                    (value as INotifyCollectionChanged).CollectionChanged += new NotifyCollectionChangedEventHandler(LegendItemsSource_CollectionChanged);
+                    (value as INotifyCollectionChanged).CollectionChanged += new NotifyCollectionChangedEventHandler(OnLegendItemsSourceCollectionChanged);
                 }
                 _legendItemsSource = value;
                 _itemsSource.Clear();
@@ -37,7 +37,7 @@ namespace AmCharts.Windows.QuickCharts
             }
         }
 
-        void LegendItemsSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void OnLegendItemsSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Reset)
             {

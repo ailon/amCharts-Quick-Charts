@@ -14,7 +14,7 @@ namespace AmCharts.Windows.QuickCharts
 
         public static readonly DependencyProperty ValueMemberPathProperty = DependencyProperty.Register(
             "ValueMemberPath", typeof(string), typeof(SerialGraph), 
-            new PropertyMetadata(null, new PropertyChangedCallback(SerialGraph.ValueMemberPath_PropertyChanged))
+            new PropertyMetadata(null, new PropertyChangedCallback(SerialGraph.OnValueMemberPathPropertyChanged))
             );
 
         public string ValueMemberPath
@@ -23,7 +23,7 @@ namespace AmCharts.Windows.QuickCharts
             set { SetValue(ValueMemberPathProperty, value); }
         }
 
-        private static void ValueMemberPath_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnValueMemberPathPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             SerialGraph graph = d as SerialGraph;
             if (graph.ValueMemberPathChanged != null)

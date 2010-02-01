@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
 
 namespace AmCharts.Windows.QuickCharts
 {
@@ -13,7 +14,7 @@ namespace AmCharts.Windows.QuickCharts
             set;
         }
 
-        public System.Windows.Media.Brush Brush
+        public Brush Brush
         {
             get;
             set;

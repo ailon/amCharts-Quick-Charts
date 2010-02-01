@@ -19,14 +19,14 @@ namespace AmCharts.Windows.QuickCharts
         {
             this.DefaultStyleKey = typeof(SerialChart);
 
-            this._graphs.CollectionChanged += new NotifyCollectionChangedEventHandler(_graphs_CollectionChanged);
+            this._graphs.CollectionChanged += new NotifyCollectionChangedEventHandler(OnGraphsCollectionChanged);
 
             this.LayoutUpdated += new EventHandler(OnLayoutUpdated);
 
             Padding = new Thickness(20);
         }
 
-        void _graphs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void OnGraphsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
             {
@@ -130,14 +130,14 @@ namespace AmCharts.Windows.QuickCharts
         public override void OnApplyTemplate()
         {
             _graphCanvasDecorator = (Border)TreeHelper.TemplateFindName("PART_GraphCanvasDecorator", this);
-            _graphCanvasDecorator.SizeChanged += new SizeChangedEventHandler(_graphCanvasDecorator_SizeChanged);
+            _graphCanvasDecorator.SizeChanged += new SizeChangedEventHandler(OnGraphCanvasDecoratorSizeChanged);
             _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
             AddGraphsToCanvas();
             AddIndicatorsToCanvas();
 
-            _graphCanvas.MouseEnter += new MouseEventHandler(_graphCanvas_MouseEnter);
-            _graphCanvas.MouseMove += new System.Windows.Input.MouseEventHandler(_graphCanvas_MouseMove);
-            _graphCanvas.MouseLeave += new MouseEventHandler(_graphCanvas_MouseLeave);
+            _graphCanvas.MouseEnter += new MouseEventHandler(OnGraphCanvasMouseEnter);
+            _graphCanvas.MouseMove += new System.Windows.Input.MouseEventHandler(OnGraphCanvasMouseMove);
+            _graphCanvas.MouseLeave += new MouseEventHandler(OnGraphCanvasMouseLeave);
 
             _valueAxis = (ValueAxis)TreeHelper.TemplateFindName("PART_ValueAxis", this);
             _valueGrid = (ValueGrid)TreeHelper.TemplateFindName("PART_ValueGrid", this);
@@ -152,20 +152,20 @@ namespace AmCharts.Windows.QuickCharts
             _legend.LegendItemsSource = this.Graphs.Cast<ILegendItem>(); // TODO: handle changes in Graphs
         }
 
-        void _graphCanvas_MouseEnter(object sender, MouseEventArgs e)
+        void OnGraphCanvasMouseEnter(object sender, MouseEventArgs e)
         {
             Point position = e.GetPosition(_graphCanvas);
             PositionIndicators(position);
         }
 
-        void _graphCanvas_MouseMove(object sender, MouseEventArgs e)
+        void OnGraphCanvasMouseMove(object sender, MouseEventArgs e)
         {
             Point position = e.GetPosition(_graphCanvas);
             PositionIndicators(position);
             SetToolTips(position);
         }
 
-        void _graphCanvas_MouseLeave(object sender, MouseEventArgs e)
+        void OnGraphCanvasMouseLeave(object sender, MouseEventArgs e)
         {
             HideIndicators();
         }
@@ -200,7 +200,7 @@ namespace AmCharts.Windows.QuickCharts
             }
         }
 
-        void _graphCanvasDecorator_SizeChanged(object sender, SizeChangedEventArgs e)
+        void OnGraphCanvasDecoratorSizeChanged(object sender, SizeChangedEventArgs e)
         {
             _plotAreaInnerSize = new Size(_graphCanvasDecorator.ActualWidth, _graphCanvasDecorator.ActualHeight);
             AdjustGridCount();
@@ -267,7 +267,7 @@ namespace AmCharts.Windows.QuickCharts
 
         public static readonly DependencyProperty DataSourceProperty = DependencyProperty.Register(
             "DataSource", typeof(IEnumerable), typeof(SerialChart), 
-            new PropertyMetadata(null, new PropertyChangedCallback(SerialChart.DataSourceProperty_Changed)));
+            new PropertyMetadata(null, new PropertyChangedCallback(SerialChart.OnDataSourcePropertyChanged)));
 
         public IEnumerable DataSource
         {
@@ -275,7 +275,7 @@ namespace AmCharts.Windows.QuickCharts
             set { SetValue(DataSourceProperty, value); }
         }
 
-        private static void DataSourceProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnDataSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             SerialChart chart = d as SerialChart;
             DetachOldDataSourceCollectionChangedListener(chart, e.OldValue);
@@ -287,7 +287,7 @@ namespace AmCharts.Windows.QuickCharts
         {
             if (dataSource != null && dataSource is INotifyCollectionChanged)
             {
-                (dataSource as INotifyCollectionChanged).CollectionChanged -= chart.DataSource_CollectionChanged;
+                (dataSource as INotifyCollectionChanged).CollectionChanged -= chart.OnDataSourceCollectionChanged;
             }
         }
 
@@ -295,11 +295,11 @@ namespace AmCharts.Windows.QuickCharts
         {
             if (dataSource != null && dataSource is INotifyCollectionChanged)
             {
-                (dataSource as INotifyCollectionChanged).CollectionChanged += new NotifyCollectionChangedEventHandler(chart.DataSource_CollectionChanged);
+                (dataSource as INotifyCollectionChanged).CollectionChanged += new NotifyCollectionChangedEventHandler(chart.OnDataSourceCollectionChanged);
             }
         }
 
-        private void DataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnDataSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             // TODO: implement intelligent mechanism to hanlde multiple changes in one batch
             ProcessData();
@@ -419,7 +419,7 @@ namespace AmCharts.Windows.QuickCharts
                 _maximumValue = (from vs in _values.Values
                                  select vs.Max()).Max();
 
-                AdjustMinMax(_valueGridCount); // TODO: add logic to set grid count automatically based on chart size
+                AdjustMinMax(_valueGridCount);
 
                 SetValueGridValues();
 
