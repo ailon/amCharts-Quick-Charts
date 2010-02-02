@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace QuickChartsSLApp
 {
@@ -52,6 +53,24 @@ namespace QuickChartsSLApp
             }
             this.DataContext = this;
         }
+
+        Random _rnd;
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            _rnd = new Random();
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Start();
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            _data.Add(new TestDataItem() { cat1 = DateTime.Now.Ticks.ToString(), val1 = _rnd.NextDouble() * 8, val2 = _rnd.NextDouble() * 18, val3 = _rnd.NextDouble() * 5 + 3 });
+            _data.RemoveAt(0);
+        }
+
     }
 
     public class TestDataItem

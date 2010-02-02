@@ -25,6 +25,7 @@
         <StackPanel Grid.Row="1">
             <Button Click="Button_Click" Content="Add data" />
             <Button Click="Button2_Click" Content="Add random data" />
+            <Button Click="Button_Click_1" Content="Real-time data" />
         </StackPanel>
 
     </Grid>
