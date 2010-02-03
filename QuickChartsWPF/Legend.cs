@@ -10,8 +10,14 @@ using System.Windows.Controls;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Represents chart legend.
+    /// </summary>
     public class Legend : ItemsControl
     {
+        /// <summary>
+        /// Instantiates Legend.
+        /// </summary>
         public Legend()
         {
             this.DefaultStyleKey = typeof(Legend);
@@ -22,6 +28,9 @@ namespace AmCharts.Windows.QuickCharts
         private ObservableCollection<LegendItem> _itemsSource = new ObservableCollection<LegendItem>();
 
         private IEnumerable<ILegendItem> _legendItemsSource;
+        /// <summary>
+        /// Gets or sets legend item source.
+        /// </summary>
         public IEnumerable<ILegendItem> LegendItemsSource
         {
             get { return _legendItemsSource; }

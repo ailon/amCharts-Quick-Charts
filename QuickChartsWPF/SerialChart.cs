@@ -13,8 +13,14 @@ using System.Windows.Data;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Displays serial charts (line, column, etc.).
+    /// </summary>
     public class SerialChart : Control
     {
+        /// <summary>
+        /// Instantiates SerialChart.
+        /// </summary>
         public SerialChart()
         {
             this.DefaultStyleKey = typeof(SerialChart);
@@ -119,6 +125,9 @@ namespace AmCharts.Windows.QuickCharts
         }
 
         private DiscreetClearObservableCollection<SerialGraph> _graphs = new DiscreetClearObservableCollection<SerialGraph>();
+        /// <summary>
+        /// Gets collection of <see cref="SerialGraph"/> objects representing graphs for this chart.
+        /// </summary>
         public DiscreetClearObservableCollection<SerialGraph> Graphs
         {
             get { return _graphs; }
@@ -127,6 +136,9 @@ namespace AmCharts.Windows.QuickCharts
 
         private Dictionary<SerialGraph, Indicator> _indicators = new Dictionary<SerialGraph, Indicator>();
 
+        /// <summary>
+        /// Applies control template.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             _graphCanvasDecorator = (Border)TreeHelper.TemplateFindName("PART_GraphCanvasDecorator", this);
@@ -265,10 +277,17 @@ namespace AmCharts.Windows.QuickCharts
 
         private Legend _legend;
 
+        /// <summary>
+        /// Identifies <see cref="DataSource"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty DataSourceProperty = DependencyProperty.Register(
             "DataSource", typeof(IEnumerable), typeof(SerialChart), 
             new PropertyMetadata(null, new PropertyChangedCallback(SerialChart.OnDataSourcePropertyChanged)));
 
+        /// <summary>
+        /// Gets or sets data source for the chart.
+        /// This is a dependency property.
+        /// </summary>
         public IEnumerable DataSource
         {
             get { return (IEnumerable)GetValue(DataSourceProperty); }
@@ -305,11 +324,18 @@ namespace AmCharts.Windows.QuickCharts
             ProcessData();
         }
 
+        /// <summary>
+        /// Identifies <see cref="CategoryValuePath"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty CategoryValuePathProperty = DependencyProperty.Register(
             "CategoryValuePath", typeof(string), typeof(SerialChart),
             new PropertyMetadata(null)
             );
 
+        /// <summary>
+        /// Gets or sets path to the property holding category values in data source.
+        /// This is a dependency property.
+        /// </summary>
         public string CategoryValuePath
         {
             get { return (string)GetValue(CategoryValuePathProperty); }
@@ -704,6 +730,9 @@ namespace AmCharts.Windows.QuickCharts
             new SolidColorBrush(Color.FromArgb(0xFF, 0x99, 0x00, 0x00))
         };
 
+        /// <summary>
+        /// Gets a collection of preset brushes used for graphs when their Brush property isn't set explicitly.
+        /// </summary>
         public List<Brush> PresetBrushes
         {
             get { return _presetBrushes; }
@@ -713,22 +742,46 @@ namespace AmCharts.Windows.QuickCharts
         private int _valueGridCount = 5;
         private int _categoryGridCount = 5;
 
+        /// <summary>
+        /// Identifies <see cref="MinimumValueGridStep"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty MinimumValueGridStepProperty = DependencyProperty.Register(
             "MinimumValueGridStep", typeof(double), typeof(SerialChart),
             new PropertyMetadata(30.0)
             );
 
+        /// <summary>
+        /// Gets or sets minimum size of a single step in value grid/value axis values.
+        /// This is a dependency property.
+        /// The default is 30.
+        /// </summary>
+        /// <remarks>
+        /// When chart is resized and distance between grid lines becomes lower than value of MinimumValueGridStep
+        /// chart decreases number of grid lines.
+        /// </remarks>
         public double MinimumValueGridStep
         {
             get { return (double)GetValue(SerialChart.MinimumValueGridStepProperty); }
             set { SetValue(SerialChart.MinimumValueGridStepProperty, value); }
         }
 
+        /// <summary>
+        /// Identifies <see cref="MinimumCategoryGridStep"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty MinimumCategoryGridStepProperty = DependencyProperty.Register(
             "MinimumCategoryGridStep", typeof(double), typeof(SerialChart),
             new PropertyMetadata(70.0)
             );
 
+        /// <summary>
+        /// Gets or sets minimum distance between 2 value tick on category axis.
+        /// This is a dependency property.
+        /// The default is 70.
+        /// </summary>
+        /// <remarks>
+        /// When chart is resized and distance between grid lines becomes lower than value of MinimumCategoryGridStep
+        /// chart decreases number of grid lines.
+        /// </remarks>
         public double MinimumCategoryGridStep
         {
             get { return (double)GetValue(SerialChart.MinimumCategoryGridStepProperty); }
@@ -738,11 +791,19 @@ namespace AmCharts.Windows.QuickCharts
 
         /// PLOT AREA
 
+        /// <summary>
+        /// Identifies <see cref="PlotAreaBackground"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty PlotAreaBackgroundProperty = DependencyProperty.Register(
             "PlotAreaBackground", typeof(Brush), typeof(SerialChart),
             new PropertyMetadata(new SolidColorBrush(Colors.White))
             );
 
+        /// <summary>
+        /// Gets or sets a brush used as a background for plot area (the area inside of axes).
+        /// This is a dependency property.
+        /// The default is White.
+        /// </summary>
         public Brush PlotAreaBackground
         {
             get { return (Brush)GetValue(SerialChart.PlotAreaBackgroundProperty); }
@@ -751,11 +812,19 @@ namespace AmCharts.Windows.QuickCharts
 
         /// LEGEND
 
+        /// <summary>
+        /// Identifies <see cref="LegendVisibility"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty LegendVisibilityProperty = DependencyProperty.Register(
             "LegendVisibility", typeof(Visibility), typeof(SerialChart),
             new PropertyMetadata(Visibility.Visible)
             );
 
+        /// <summary>
+        /// Gets or sets visibility of the chart legend.
+        /// This is a dependency property.
+        /// The default is Visible.
+        /// </summary>
         public Visibility LegendVisibility
         {
             get { return (Visibility)GetValue(SerialChart.LegendVisibilityProperty); }
@@ -763,11 +832,19 @@ namespace AmCharts.Windows.QuickCharts
         }
 
 
+        /// <summary>
+        /// Identifies <see cref="AxisForeground"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty AxisForegroundProperty = DependencyProperty.Register(
             "AxisForeground", typeof(Brush), typeof(SerialChart),
             new PropertyMetadata(new SolidColorBrush(Colors.Black))
             );
 
+        /// <summary>
+        /// Gets or sets foreground color of the axes.
+        /// This is a dependency property.
+        /// The default is Black.
+        /// </summary>
         public Brush AxisForeground
         {
             get { return (Brush)GetValue(SerialChart.AxisForegroundProperty); }
@@ -775,22 +852,37 @@ namespace AmCharts.Windows.QuickCharts
         }
 
 
+        /// <summary>
+        /// Identifies <see cref="GridStroke"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty GridStrokeProperty = DependencyProperty.Register(
             "GridStroke", typeof(Brush), typeof(SerialChart),
             new PropertyMetadata(new SolidColorBrush(Colors.LightGray))
             );
 
+        /// <summary>
+        /// Gets or sets stroke brush for the value grid lines.
+        /// This is a dependency property.
+        /// The default is LightGray.
+        /// </summary>
         public Brush GridStroke
         {
             get { return (Brush)GetValue(SerialChart.GridStrokeProperty); }
             set { SetValue(SerialChart.GridStrokeProperty, value); }
         }
 
+        /// <summary>
+        /// Identifies <see cref="ValueFormatString"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty ValueFormatStringProperty = DependencyProperty.Register(
             "ValueFormatString", typeof(string), typeof(SerialChart),
             new PropertyMetadata(null)
             );
 
+        /// <summary>
+        /// Gets or sets the format string used to format values on axes and in tooltips.
+        /// This is a depenency property.
+        /// </summary>
         public string ValueFormatString
         {
             get { return (string)GetValue(SerialChart.ValueFormatStringProperty); }

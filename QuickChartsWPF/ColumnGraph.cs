@@ -10,8 +10,14 @@ using System.Windows.Data;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Facilitates rendering of column graphs.
+    /// </summary>
     public class ColumnGraph : SerialGraph
     {
+        /// <summary>
+        /// Creates ColumnGraph object.
+        /// </summary>
         public ColumnGraph()
         {
             this.DefaultStyleKey = typeof(ColumnGraph);
@@ -33,6 +39,9 @@ namespace AmCharts.Windows.QuickCharts
         private Path _columnGraph;
         private PathGeometry _columnGraphGeometry;
 
+        /// <summary>
+        /// Applies control template.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
@@ -40,6 +49,9 @@ namespace AmCharts.Windows.QuickCharts
 
         }
 
+        /// <summary>
+        /// Renders graph.
+        /// </summary>
         public override void Render()
         {
             if (Locations != null)
@@ -103,11 +115,21 @@ namespace AmCharts.Windows.QuickCharts
             (_columnGraphGeometry.Figures[index].Segments[3] as LineSegment).Point = new Point(left, y1);
         }
 
+        /// <summary>
+        /// Identifies <see cref="ColumnWidthAllocation"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty ColumnWidthAllocationProperty = DependencyProperty.Register(
             "ColumnWidthAllocation", typeof(double), typeof(ColumnGraph),
             new PropertyMetadata(0.8)
             );
 
+        /// <summary>
+        /// Get or sets coefficient for allocation of space between 2 data points to a single column. 
+        /// This is a dependency property.
+        /// </summary>
+        /// <remarks>
+        /// A value between 0 and 1 is expected. 0 means no space and 1 means the column will occupy the whole space between 2 neighbouring data points.
+        /// </remarks>
         public double ColumnWidthAllocation
         {
             get { return (double)GetValue(ColumnGraph.ColumnWidthAllocationProperty); }

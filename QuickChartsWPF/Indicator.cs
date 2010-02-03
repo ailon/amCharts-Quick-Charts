@@ -8,36 +8,60 @@ using System.Windows.Media;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Represents and indicator of current data point in serial chart.
+    /// </summary>
     public class Indicator : Control
     {
+        /// <summary>
+        /// Creates Indicator instance.
+        /// </summary>
         public Indicator()
         {
             this.DefaultStyleKey = typeof(Indicator);
             Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Positions indicator.
+        /// </summary>
+        /// <param name="position">Data point coordinates.</param>
         public void SetPosition(Point position)
         {
             SetValue(Canvas.LeftProperty, position.X - ActualWidth / 2);
             SetValue(Canvas.TopProperty, position.Y - ActualHeight / 2);
         }
 
+        /// <summary>
+        /// Identifies <see cref="Fill"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty FillProperty = DependencyProperty.Register(
             "Fill", typeof(Brush), typeof(Indicator),
             new PropertyMetadata(null)
             );
 
+        /// <summary>
+        /// Gets or sets filling Brush for the indicator.
+        /// This is a dependency property.
+        /// </summary>
         public Brush Fill
         {
             get { return (Brush)GetValue(Indicator.FillProperty); }
             set { SetValue(Indicator.FillProperty, value); }
         }
 
+        /// <summary>
+        /// Identifies <see cref="Stroke"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register(
             "Stroke", typeof(Brush), typeof(Indicator),
             new PropertyMetadata(null)
             );
 
+        /// <summary>
+        /// Gets or sets stroke (outline) Brush for the indicator.
+        /// This is a dependency property.
+        /// </summary>
         public Brush Stroke
         {
             get { return (Brush)GetValue(Indicator.StrokeProperty); }

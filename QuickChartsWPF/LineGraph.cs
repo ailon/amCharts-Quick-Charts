@@ -10,8 +10,14 @@ using System.Windows.Data;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Facilitates rendering of line graphs.
+    /// </summary>
     public class LineGraph : SerialGraph
     {
+        /// <summary>
+        /// Instantiates LineGraph.
+        /// </summary>
         public LineGraph()
         {
             this.DefaultStyleKey = typeof(LineGraph);
@@ -38,22 +44,37 @@ namespace AmCharts.Windows.QuickCharts
         private Canvas _graphCanvas;
         private Polyline _lineGraph;
 
+        /// <summary>
+        /// Applies control template.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
             _graphCanvas.Children.Add(_lineGraph);
         }
 
+        /// <summary>
+        /// Renders line graph.
+        /// </summary>
         public override void Render()
         {
             _lineGraph.Points = Locations;
         }
 
+
+        /// <summary>
+        /// Identifies <see cref="StrokeThickness"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty StrokeThicknessProperty = DependencyProperty.Register(
             "StrokeThickness", typeof(double), typeof(LineGraph),
             new PropertyMetadata(2.0)
             );
 
+        /// <summary>
+        /// Gets or sets stroke thickness for a line graph line.
+        /// This is a dependency property.
+        /// The default is 2.
+        /// </summary>
         public double StrokeThickness
         {
             get { return (double)GetValue(LineGraph.StrokeThicknessProperty); }

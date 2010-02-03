@@ -7,8 +7,15 @@ using System.Windows.Data;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Utility class to facilitate temporary binding evaluation
+    /// </summary>
     public class BindingEvaluator : FrameworkElement
     {
+        /// <summary>
+        /// Created binding evaluator and set path to the property which's value should be evaluated.
+        /// </summary>
+        /// <param name="propertyPath">Path to the property</param>
         public BindingEvaluator(string propertyPath)
         {
             _propertyPath = propertyPath;
@@ -16,9 +23,17 @@ namespace AmCharts.Windows.QuickCharts
 
         private string _propertyPath;
 
+        /// <summary>
+        /// Identifies <see cref="Evaluator"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty EvaluatorProperty = DependencyProperty.Register(
             "Evaluator", typeof(object), typeof(BindingEvaluator), null);
 
+        /// <summary>
+        /// Returns evaluated value of property on provided object source.
+        /// </summary>
+        /// <param name="source">Object for which property value should be evaluated</param>
+        /// <returns>Value of the property</returns>
         public object Eval(object source)
         {
             ClearValue(BindingEvaluator.EvaluatorProperty);

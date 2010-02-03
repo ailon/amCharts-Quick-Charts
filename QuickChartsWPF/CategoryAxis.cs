@@ -10,8 +10,14 @@ using System.Windows.Media;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Represents category axis in serial chart (usually x-axis)
+    /// </summary>
     public class CategoryAxis : Control
     {
+        /// <summary>
+        /// Instantiates CategoryAxis object
+        /// </summary>
         public CategoryAxis()
         {
             this.DefaultStyleKey = typeof(CategoryAxis);
@@ -26,12 +32,20 @@ namespace AmCharts.Windows.QuickCharts
         private List<TextBlock> _valueBoxes = new List<TextBlock>();
         private List<Line> _valueTicks = new List<Line>();
 
+        /// <summary>
+        /// Applies control template
+        /// </summary>
         public override void OnApplyTemplate()
         {
             _valuesPanel = (Canvas)TreeHelper.TemplateFindName("PART_ValuesPanel", this);
             _tickPanel = (Canvas)TreeHelper.TemplateFindName("PART_TickPanel", this);
         }
 
+        /// <summary>
+        /// Measures desired size for the axis.
+        /// </summary>
+        /// <param name="constraint">Constraint</param>
+        /// <returns>Desired size</returns>
         protected override Size MeasureOverride(Size constraint)
         {
             Size desiredSize = new Size(0, 0);
@@ -50,6 +64,11 @@ namespace AmCharts.Windows.QuickCharts
             return desiredSize;
         }
 
+        /// <summary>
+        /// Arranges axis labels
+        /// </summary>
+        /// <param name="arrangeBounds">Arrange bounds</param>
+        /// <returns>Arranged bounds</returns>
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
             foreach (TextBlock valueBox in _valueBoxes)
@@ -64,12 +83,20 @@ namespace AmCharts.Windows.QuickCharts
             return base.ArrangeOverride(arrangeBounds);
         }
 
+        /// <summary>
+        /// Sets values to be displayed as axis labels
+        /// </summary>
+        /// <param name="values">Values</param>
         public void SetValues(IEnumerable<string> values)
         {
             _values = new List<string>(values);
             CreateValueObjects();
         }
 
+        /// <summary>
+        /// Set's locations of value labels (ticks) on the axis.
+        /// </summary>
+        /// <param name="locations">Value locations (coordinates)</param>
         public void SetLocations(IEnumerable<double> locations)
         {
             _locations = new List<double>(locations);
