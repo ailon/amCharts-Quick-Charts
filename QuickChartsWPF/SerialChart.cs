@@ -789,7 +789,7 @@ namespace AmCharts.Windows.QuickCharts
         }
 
 
-        /// PLOT AREA
+        //// PLOT AREA
 
         /// <summary>
         /// Identifies <see cref="PlotAreaBackground"/> dependency property.
@@ -810,7 +810,7 @@ namespace AmCharts.Windows.QuickCharts
             set { SetValue(SerialChart.PlotAreaBackgroundProperty, value); }
         }
 
-        /// LEGEND
+        //// LEGEND
 
         /// <summary>
         /// Identifies <see cref="LegendVisibility"/> dependency property.

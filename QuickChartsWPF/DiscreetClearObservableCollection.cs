@@ -7,7 +7,7 @@ using System.Text;
 namespace AmCharts.Windows.QuickCharts
 {
     /// <summary>
-    /// A version of <see cref="ObservableCollection<>"/> which on call to Clear() removes items one-by-one.
+    /// A version of <see cref="ObservableCollection{T}"/> which on call to Clear() removes items one-by-one.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class DiscreetClearObservableCollection<T> : ObservableCollection<T>

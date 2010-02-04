@@ -24,7 +24,7 @@ namespace AmCharts.Windows.QuickCharts
         private string _propertyPath;
 
         /// <summary>
-        /// Identifies <see cref="Evaluator"/> dependency property.
+        /// Dependency property used to evaluate values.
         /// </summary>
         public static readonly DependencyProperty EvaluatorProperty = DependencyProperty.Register(
             "Evaluator", typeof(object), typeof(BindingEvaluator), null);

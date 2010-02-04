@@ -9,8 +9,14 @@ using System.Windows.Shapes;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Represents grid in serial chart.
+    /// </summary>
     public class ValueGrid : Control
     {
+        /// <summary>
+        /// Initializes a new instance of ValueGrid class.
+        /// </summary>
         public ValueGrid()
         {
             this.DefaultStyleKey = typeof(ValueGrid);
@@ -30,11 +36,18 @@ namespace AmCharts.Windows.QuickCharts
         private List<double> _locations = new List<double>();
         private List<Line> _gridLines = new List<Line>();
 
+        /// <summary>
+        /// Assigns control template parts.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             _gridCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GridCanvas", this);
         }
 
+        /// <summary>
+        /// Sets locations (coordinates) of grid lines.
+        /// </summary>
+        /// <param name="locations">Locations (coordinates) of grid lines.</param>
         public void SetLocations(IEnumerable<double> locations)
         {
             _locations = new List<double>(locations);

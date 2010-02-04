@@ -10,8 +10,14 @@ using System.Windows.Media;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Represents value axis (y-axis in serial chart).
+    /// </summary>
     public class ValueAxis : Control
     {
+        /// <summary>
+        /// Initializes a new instance of ValueAxis class.
+        /// </summary>
         public ValueAxis()
         {
             this.DefaultStyleKey = typeof(ValueAxis);
@@ -26,12 +32,20 @@ namespace AmCharts.Windows.QuickCharts
         private List<TextBlock> _valueBoxes = new List<TextBlock>();
         private List<Line> _valueTicks = new List<Line>();
 
+        /// <summary>
+        /// Applies template.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             _valuesPanel = (Canvas)TreeHelper.TemplateFindName("PART_ValuesPanel", this);
             _tickPanel = (Canvas)TreeHelper.TemplateFindName("PART_TickPanel", this);
         }
 
+        /// <summary>
+        /// Calculates desired size for the axis.
+        /// </summary>
+        /// <param name="constraint">Size constraint.</param>
+        /// <returns>Desired size.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
             Size desiredSize = new Size(0, 0);
@@ -50,6 +64,11 @@ namespace AmCharts.Windows.QuickCharts
             return desiredSize;
         }
 
+        /// <summary>
+        /// Arranges axis elements.
+        /// </summary>
+        /// <param name="arrangeBounds">Arrange bounds.</param>
+        /// <returns>Arranged size.</returns>
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
             foreach (TextBlock valueBox in _valueBoxes)
@@ -64,12 +83,20 @@ namespace AmCharts.Windows.QuickCharts
             return base.ArrangeOverride(arrangeBounds);
         }
 
+        /// <summary>
+        /// Sets values displayed on axis.
+        /// </summary>
+        /// <param name="values">Values.</param>
         public void SetValues(IEnumerable<double> values)
         {
             _values = new List<double>(values);
             CreateValueObjects();
         }
 
+        /// <summary>
+        /// Sets locations of axis values and value marks (ticks).
+        /// </summary>
+        /// <param name="locations">Locations (coordinates).</param>
         public void SetLocations(IEnumerable<double> locations)
         {
             _locations = new List<double>(locations);
@@ -148,11 +175,18 @@ namespace AmCharts.Windows.QuickCharts
             }
         }
 
+        /// <summary>
+        /// Identifies <see cref="ValueFormatString"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty ValueFormatStringProperty = DependencyProperty.Register(
             "ValueFormatString", typeof(string), typeof(ValueAxis),
             new PropertyMetadata(null)
             );
 
+        /// <summary>
+        /// Gets or sets the format string used to format values on the axis.
+        /// This is a depenency property.
+        /// </summary>
         public string ValueFormatString
         {
             get { return (string)GetValue(ValueFormatStringProperty); }
