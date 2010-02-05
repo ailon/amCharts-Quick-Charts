@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QuickChartsSLMetadataBlend")]
+[assembly: AssemblyTitle("amCharts Quick Charts for Silverlight Metadata")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("QuickChartsSLMetadataBlend")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
+[assembly: AssemblyCompany("amCharts")]
+[assembly: AssemblyProduct("amCharts Quick Charts for Silverlight")]
+[assembly: AssemblyCopyright("Copyright © amCharts 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
