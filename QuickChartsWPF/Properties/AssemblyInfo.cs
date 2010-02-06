@@ -3,6 +3,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -52,4 +53,8 @@ using System.Windows;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("0.8.*")]
+
+[assembly: XmlnsDefinition("http://schemas.amcharts.com/quick/wpf/2010/xaml", "AmCharts.Windows.QuickCharts")]
+
+[assembly: XmlnsPrefix("http://schemas.amcharts.com/quick/wpf/2010/xaml", "amq")]
