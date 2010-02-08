@@ -411,10 +411,6 @@ namespace AmCharts.Windows.QuickCharts
                     _categoryValues.Add(eval.Eval(dataItem).ToString());
                 }
             }
-            else
-            {
-                _categoryValues.Clear();
-            }
         }
 
         private void AddSingleStepValues(IEnumerable<string> paths, Dictionary<string, BindingEvaluator> bindingEvaluators, object dataItem)
