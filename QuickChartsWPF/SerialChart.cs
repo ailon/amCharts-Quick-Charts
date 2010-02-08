@@ -137,20 +137,33 @@ namespace AmCharts.Windows.QuickCharts
         private Dictionary<SerialGraph, Indicator> _indicators = new Dictionary<SerialGraph, Indicator>();
 
         /// <summary>
-        /// Applies control template.
+        /// Assigns template parts
         /// </summary>
         public override void OnApplyTemplate()
+        {
+            AssignGraphCanvas();
+
+            AddGraphsToCanvas();
+            AddIndicatorsToCanvas();
+
+            AssignGridParts();
+
+            AssignLegend();
+        }
+
+        private void AssignGraphCanvas()
         {
             _graphCanvasDecorator = (Border)TreeHelper.TemplateFindName("PART_GraphCanvasDecorator", this);
             _graphCanvasDecorator.SizeChanged += new SizeChangedEventHandler(OnGraphCanvasDecoratorSizeChanged);
             _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
-            AddGraphsToCanvas();
-            AddIndicatorsToCanvas();
 
             _graphCanvas.MouseEnter += new MouseEventHandler(OnGraphCanvasMouseEnter);
             _graphCanvas.MouseMove += new System.Windows.Input.MouseEventHandler(OnGraphCanvasMouseMove);
             _graphCanvas.MouseLeave += new MouseEventHandler(OnGraphCanvasMouseLeave);
+        }
 
+        private void AssignGridParts()
+        {
             _valueAxis = (ValueAxis)TreeHelper.TemplateFindName("PART_ValueAxis", this);
             _valueGrid = (ValueGrid)TreeHelper.TemplateFindName("PART_ValueGrid", this);
 
@@ -159,7 +172,10 @@ namespace AmCharts.Windows.QuickCharts
             _valueAxis.SetBinding(ValueAxis.ValueFormatStringProperty, formatBinding);
 
             _categoryAxis = (CategoryAxis)TreeHelper.TemplateFindName("PART_CategoryAxis", this);
+        }
 
+        private void AssignLegend()
+        {
             _legend = (Legend)TreeHelper.TemplateFindName("PART_Legend", this);
             _legend.LegendItemsSource = this.Graphs.Cast<ILegendItem>(); // TODO: handle changes in Graphs
         }
