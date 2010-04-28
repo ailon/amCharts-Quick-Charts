@@ -9,6 +9,7 @@
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/CategoryAxis.xaml" />
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/ColumnGraph.xaml" />
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/LineGraph.xaml" />
+        <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/AreaGraph.xaml" />
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/Legend.xaml" />
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/Indicator.xaml" />
     </ResourceDictionary.MergedDictionaries>

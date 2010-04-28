@@ -48,6 +48,9 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\QuickChartsWPF\AreaGraph.cs">
+      <Link>AreaGraph.cs</Link>
+    </Compile>
     <Compile Include="..\QuickChartsWPF\BindingEvaluator.cs">
       <Link>BindingEvaluator.cs</Link>
     </Compile>
@@ -99,6 +102,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="..\QuickChartsWPF\Themes\AreaGraph.xaml">
+      <Link>Themes\AreaGraph.xaml</Link>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\QuickChartsWPF\Themes\CategoryAxis.xaml">
       <Link>Themes\CategoryAxis.xaml</Link>
       <Generator>MSBuild:MarkupCompilePass1</Generator>

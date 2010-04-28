@@ -71,6 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\AreaGraph.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Indicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,6 +108,7 @@
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="ColumnGraph.cs" />
     <Compile Include="CategoryAxis.cs" />
+    <Compile Include="AreaGraph.cs" />
     <Compile Include="DataPathEventArgs.cs" />
     <Compile Include="DiscreetClearObservableCollection.cs" />
     <Compile Include="ILegendItem.cs" />
