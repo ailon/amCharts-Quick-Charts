@@ -95,7 +95,9 @@ namespace AmCharts.Windows.QuickCharts.Design
         private static void AddNewItemTypesAttributes(AttributeTableBuilder builder)
         {
             builder.AddCustomAttributes(typeof(SerialChart), "Graphs",
-                new NewItemTypesAttribute(typeof(LineGraph),
+                new NewItemTypesAttribute(
+                    typeof(LineGraph),
+                    typeof(AreaGraph),
                     typeof(ColumnGraph)));
 
             builder.AddCustomAttributes(typeof(SerialChart), "PresetBrushes",
@@ -138,6 +140,10 @@ namespace AmCharts.Windows.QuickCharts.Design
                 new ToolboxBrowsableAttribute(false)
                 );
 
+            builder.AddCustomAttributes(
+                typeof(AreaGraph),
+                new ToolboxBrowsableAttribute(false)
+                );
 
             builder.AddCustomAttributes(
                 typeof(CategoryAxis),
