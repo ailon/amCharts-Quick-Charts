@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="QuickChartsSLApp.PieChart"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts.SL"
+    Loaded="UserControl_Loaded">
+    <Grid x:Name="LayoutRoot" Background="White">
+        <amq:PieChart Name="pie1" TitleMemberPath="Title" ValueMemberPath="Value" />
+
+    </Grid>
+</UserControl>

@@ -75,6 +75,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Slice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\PieChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Indicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,6 +124,7 @@
     <Compile Include="Legend.cs" />
     <Compile Include="LegendItem.cs" />
     <Compile Include="LineGraph.cs" />
+    <Compile Include="PieChart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -131,6 +140,7 @@
     </Compile>
     <Compile Include="SerialChart.cs" />
     <Compile Include="SerialGraph.cs" />
+    <Compile Include="Slice.cs" />
     <Compile Include="TextBlockHelper.cs" />
     <Compile Include="TreeHelper.cs" />
     <Compile Include="ValueAxis.cs" />

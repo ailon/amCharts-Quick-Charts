@@ -12,5 +12,7 @@
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/AreaGraph.xaml" />
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/Legend.xaml" />
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/Indicator.xaml" />
+        <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/PieChart.xaml" />
+        <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/Slice.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

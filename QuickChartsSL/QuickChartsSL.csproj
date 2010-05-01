@@ -81,11 +81,17 @@
     <Compile Include="..\QuickChartsWPF\LineGraph.cs">
       <Link>LineGraph.cs</Link>
     </Compile>
+    <Compile Include="..\QuickChartsWPF\PieChart.cs">
+      <Link>PieChart.cs</Link>
+    </Compile>
     <Compile Include="..\QuickChartsWPF\SerialChart.cs">
       <Link>SerialChart.cs</Link>
     </Compile>
     <Compile Include="..\QuickChartsWPF\SerialGraph.cs">
       <Link>SerialGraph.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\Slice.cs">
+      <Link>Slice.cs</Link>
     </Compile>
     <Compile Include="..\QuickChartsWPF\TextBlockHelper.cs">
       <Link>TextBlockHelper.cs</Link>
@@ -132,8 +138,18 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="..\QuickChartsWPF\Themes\PieChart.xaml">
+      <Link>Themes\PieChart.xaml</Link>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\QuickChartsWPF\Themes\SerialChart.xaml">
       <Link>Themes\SerialChart.xaml</Link>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\Slice.xaml">
+      <Link>Themes\Slice.xaml</Link>
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>

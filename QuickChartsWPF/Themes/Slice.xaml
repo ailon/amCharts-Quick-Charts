@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts"
+    >
+    <Style TargetType="amq:Slice">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="amq:Slice">
+                    <Path x:Name="PART_SliceVisual" Stroke="Black" StrokeThickness="2">
+                    </Path>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

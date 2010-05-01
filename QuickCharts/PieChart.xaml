@@ -1,0 +1,10 @@
+﻿<Window x:Class="QuickCharts.PieChart"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts"
+    Title="PieChart" Height="500" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <amq:PieChart Name="pie1" TitleMemberPath="Title" ValueMemberPath="Value" />
+        
+    </Grid>
+</Window>
