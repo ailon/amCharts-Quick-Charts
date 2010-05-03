@@ -81,6 +81,8 @@ namespace AmCharts.Windows.QuickCharts
                 geometry.Figures.Add(figure);
                 _sliceVisual.Data = geometry;
 
+                _sliceVisual.Fill = Brush;
+
                 double endAngleRad = _percentage * 360 * Math.PI / 180;
                 Point endPoint = new Point(_radius * Math.Cos(endAngleRad), _radius * Math.Sin(endAngleRad));
 

@@ -18,16 +18,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Border x:Name="PART_SliceCanvasDecorator" Background="Green">
-                                <Canvas x:Name="PART_SliceCanvas" Background="Transparent" />
+                            <Border x:Name="PART_SliceCanvasDecorator">
+                                <Canvas x:Name="PART_SliceCanvas" />
                             </Border>
 
                             <amq:Legend x:Name="PART_Legend" Grid.Column="2" Grid.Row="0" 
                                         Margin="10,0,0,0" 
                                         Visibility="{TemplateBinding LegendVisibility}"
                                         />
-                            
-                            <TextBlock>Test</TextBlock>
                         </Grid>
                     </Border>
                 </ControlTemplate>

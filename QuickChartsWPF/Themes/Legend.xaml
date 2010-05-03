@@ -7,7 +7,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="amq:Legend">
-                    <Border>
+                    <Border Background="Gray">
                         <ItemsPresenter />
                     </Border>
                 </ControlTemplate>
@@ -25,9 +25,9 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Background="Red">
                         <Rectangle Fill="{Binding Brush}" Height="10" Width="10" Margin="5" />
-                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center" />
                     </StackPanel>
                 </DataTemplate>
             </Setter.Value>

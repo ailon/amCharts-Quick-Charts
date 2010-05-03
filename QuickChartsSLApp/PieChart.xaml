@@ -3,8 +3,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts.SL"
     Loaded="UserControl_Loaded">
-    <Grid x:Name="LayoutRoot" Background="White">
-        <amq:PieChart Name="pie1" TitleMemberPath="Title" ValueMemberPath="Value" />
+    <Grid x:Name="LayoutRoot">
+        <amq:PieChart Name="pie1" TitleMemberPath="Title" ValueMemberPath="Value">
+            <amq:PieChart.Brushes>
+                <RadialGradientBrush GradientOrigin="0,0" Center="0,0" RadiusX="1" RadiusY="1">
+                    <GradientStop Offset="0" Color="#FFeeee" />
+                    <GradientStop Offset="1" Color="#FF0000" />
+                </RadialGradientBrush>
+                <RadialGradientBrush GradientOrigin="0,0" Center="0,0">
+                    <GradientStop Offset="0" Color="#eeffee" />
+                    <GradientStop Offset="1" Color="#00ff00" />
+                </RadialGradientBrush>
+            </amq:PieChart.Brushes>
+        </amq:PieChart>
 
     </Grid>
 </UserControl>

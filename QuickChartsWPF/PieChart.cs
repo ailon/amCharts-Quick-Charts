@@ -7,6 +7,7 @@ using System.Windows;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Windows.Media;
+using System.Collections.ObjectModel;
 
 namespace AmCharts.Windows.QuickCharts
 {
@@ -16,6 +17,7 @@ namespace AmCharts.Windows.QuickCharts
         {
             this.DefaultStyleKey = typeof(PieChart);
             this.LayoutUpdated += new EventHandler(OnLayoutUpdated);
+            this._slices.CollectionChanged += new NotifyCollectionChangedEventHandler(OnSlicedCollectionChanged);
         }
 
 
@@ -185,17 +187,29 @@ namespace AmCharts.Windows.QuickCharts
             {
                 RemoveSlices();
             }
-            SetAngles();
+            SetSliceData();
         }
 
-        private void SetAngles()
+        private void SetSliceData()
         {
             double runningTotal = 0;
             for (int i = 0; i < _slices.Count; i++)
             {
+                // title
+                _slices[i].Title = _titles[i];
+                SetSliceBrush(i);
+
+                // angle
                 ((RotateTransform)_slices[i].RenderTransform).Angle = runningTotal / _total * 360;
                 runningTotal += _values[i];
             }
+        }
+
+        private void SetSliceBrush(int index)
+        {
+            List<Brush> brushes = _brushes.Count > 0 ? _brushes : _presetBrushes;
+            int brushCount = brushes.Count;
+            _slices[index].Brush = brushes[index % brushCount];
         }
 
         private void RemoveSlices()
@@ -253,6 +267,22 @@ namespace AmCharts.Windows.QuickCharts
             _sliceCanvas = (Canvas)TreeHelper.TemplateFindName("PART_SliceCanvas", this);
 
             AddSlicesToCanvas();
+
+            _legend = (Legend)TreeHelper.TemplateFindName("PART_Legend", this);
+            UpdateLegend();
+        }
+
+        private void UpdateLegend()
+        {
+            if (_legend != null)
+            {
+                _legend.LegendItemsSource = _slices.Cast<ILegendItem>();
+            }
+        }
+
+        void OnSlicedCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            UpdateLegend();
         }
 
         private void OnGraphCanvasDecoratorSizeChanged(object sender, SizeChangedEventArgs e)
@@ -271,7 +301,7 @@ namespace AmCharts.Windows.QuickCharts
             //RenderSlices();
         }
 
-        private List<Slice> _slices = new List<Slice>();
+        private ObservableCollection<Slice> _slices = new ObservableCollection<Slice>();
 
         private void RenderSlices()
         {
@@ -286,7 +316,7 @@ namespace AmCharts.Windows.QuickCharts
             if (_sliceCanvasDecorator != null)
             {
                 Point center = new Point(_sliceCanvasDecorator.ActualWidth / 2, _sliceCanvasDecorator.ActualHeight / 2);
-                double radius = Math.Min(_sliceCanvasDecorator.ActualWidth, _sliceCanvasDecorator.ActualHeight) / 2 * 0.8;
+                double radius = Math.Min(_sliceCanvasDecorator.ActualWidth, _sliceCanvasDecorator.ActualHeight) / 2;
                 for (int i = 0; i < _slices.Count; i++)
                 {
                     _slices[i].SetDimensions(radius, _values[i] / _total);
@@ -295,5 +325,38 @@ namespace AmCharts.Windows.QuickCharts
                 }
             }
         }
+
+        private List<Brush> _presetBrushes = new List<Brush>()
+        {
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x0F, 0x00)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x66, 0x00)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x9E, 0x01)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xFC, 0xD2, 0x02)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xF8, 0xFF, 0x01)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xB0, 0xDE, 0x09)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x04, 0xD2, 0x15)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x0D, 0x8E, 0xCF)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x0D, 0x52, 0xD1)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x3A, 0x0C, 0xD0)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x8A, 0x0C, 0xCF)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xCD, 0x0D, 0x74)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x75, 0x4D, 0xEB)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x99, 0x99, 0x99)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x33, 0x33, 0x33)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x99, 0x00, 0x00))
+        };
+
+        private List<Brush> _brushes = new List<Brush>();
+
+        /// <summary>
+        /// Gets a collection of preset brushes used for slices.
+        /// </summary>
+        public List<Brush> Brushes
+        {
+            get { return _brushes; }
+            set { throw new NotSupportedException(); }
+        }
+
     }
 }
