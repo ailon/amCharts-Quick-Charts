@@ -34,14 +34,6 @@ namespace QuickChartsSLApp
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             this.DataContext = this;
-            DispatcherTimer timer2 = new DispatcherTimer();
-            timer2.Interval = TimeSpan.FromSeconds(5);
-            timer2.Tick += new EventHandler(timer2_Tick);
-            timer2.Start();
-        }
-        void timer2_Tick(object sender, EventArgs e)
-        {
-            chart1.Graphs[1].Title = "changed title";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

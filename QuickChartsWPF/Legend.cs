@@ -72,11 +72,7 @@ namespace AmCharts.Windows.QuickCharts
             {
                 foreach (ILegendItem item in items)
                 {
-                    _itemsSource.Add(new LegendItem() { 
-                        Title = item.Title, 
-                        Brush = item.Brush, 
-                        OriginalItem = item 
-                    });
+                    _itemsSource.Add(new LegendItem(item));
                 }
             }
         }
