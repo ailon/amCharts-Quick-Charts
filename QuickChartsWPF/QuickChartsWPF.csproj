@@ -124,7 +124,8 @@
     <Compile Include="Legend.cs" />
     <Compile Include="LegendItem.cs" />
     <Compile Include="LineGraph.cs" />
-    <Compile Include="PieChart.cs" />
+    <Compile Include="PieChart.cs">
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

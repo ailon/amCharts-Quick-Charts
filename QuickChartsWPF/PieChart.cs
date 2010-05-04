@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace AmCharts.Windows.QuickCharts
 {
@@ -202,6 +203,10 @@ namespace AmCharts.Windows.QuickCharts
                 // angle
                 ((RotateTransform)_slices[i].RenderTransform).Angle = runningTotal / _total * 360;
                 runningTotal += _values[i];
+
+                // tooltip
+                string tooltipContent = _slices[i].Title + " : " + _values[i].ToString() + " (" + (_values[i] / _total).ToString("0.#%") + ")";
+                ToolTipService.SetToolTip(_slices[i], tooltipContent);
             }
         }
 
@@ -240,6 +245,7 @@ namespace AmCharts.Windows.QuickCharts
                 AddSliceToCanvas(slice);
             }
         }
+
 
         private void AddSlicesToCanvas()
         {
