@@ -76,26 +76,49 @@ namespace AmCharts.Windows.QuickCharts
         {
             if (_sliceVisual != null)
             {
-                PathGeometry geometry = new PathGeometry();
-                PathFigure figure = new PathFigure();
-                geometry.Figures.Add(figure);
-                _sliceVisual.Data = geometry;
-
                 _sliceVisual.Fill = Brush;
-
-                double endAngleRad = _percentage * 360 * Math.PI / 180;
-                Point endPoint = new Point(_radius * Math.Cos(endAngleRad), _radius * Math.Sin(endAngleRad));
-
-                figure.Segments.Add(new LineSegment() { Point = new Point(_radius, 0) });
-                figure.Segments.Add(new ArcSegment()
+                if (_percentage < 1)
                 {
-                    Size = new Size(_radius, _radius),
-                    Point = endPoint,
-                    SweepDirection = SweepDirection.Clockwise,
-                    IsLargeArc = _percentage > 0.5
-                });
-                figure.Segments.Add(new LineSegment() { Point = new Point(0, 0) });
+                    RenderRegularSlice();
+                }
+                else
+                {
+                    RenderSingleSlice();
+                }
             }
+        }
+
+        private void RenderSingleSlice()
+        {
+            // single slice
+            EllipseGeometry ellipse = new EllipseGeometry()
+            {
+                Center = new Point(0, 0),
+                RadiusX = _radius,
+                RadiusY = _radius
+            };
+            _sliceVisual.Data = ellipse;
+        }
+
+        private void RenderRegularSlice()
+        {
+            PathGeometry geometry = new PathGeometry();
+            PathFigure figure = new PathFigure();
+            geometry.Figures.Add(figure);
+            _sliceVisual.Data = geometry;
+
+            double endAngleRad = _percentage * 360 * Math.PI / 180;
+            Point endPoint = new Point(_radius * Math.Cos(endAngleRad), _radius * Math.Sin(endAngleRad));
+
+            figure.Segments.Add(new LineSegment() { Point = new Point(_radius, 0) });
+            figure.Segments.Add(new ArcSegment()
+            {
+                Size = new Size(_radius, _radius),
+                Point = endPoint,
+                SweepDirection = SweepDirection.Clockwise,
+                IsLargeArc = _percentage > 0.5
+            });
+            figure.Segments.Add(new LineSegment() { Point = new Point(0, 0) });
         }
 
     }
