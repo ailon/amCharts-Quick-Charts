@@ -10,7 +10,7 @@
         </Grid.RowDefinitions>
         <amq:SerialChart x:Name="chart1"
                          DataSource="{Binding Data}" 
-                         CategoryValuePath="cat1" 
+                         CategoryValueMemberPath="cat1" 
                          Background="White"
                          BorderBrush="Black"
                          BorderThickness="1"

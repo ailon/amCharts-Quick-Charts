@@ -341,10 +341,10 @@ namespace AmCharts.Windows.QuickCharts
         }
 
         /// <summary>
-        /// Identifies <see cref="CategoryValuePath"/> dependency property.
+        /// Identifies <see cref="CategoryValueMemberPath"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty CategoryValuePathProperty = DependencyProperty.Register(
-            "CategoryValuePath", typeof(string), typeof(SerialChart),
+        public static readonly DependencyProperty CategoryValueMemberPathProperty = DependencyProperty.Register(
+            "CategoryValueMemberPath", typeof(string), typeof(SerialChart),
             new PropertyMetadata(null)
             );
 
@@ -352,10 +352,10 @@ namespace AmCharts.Windows.QuickCharts
         /// Gets or sets path to the property holding category values in data source.
         /// This is a dependency property.
         /// </summary>
-        public string CategoryValuePath
+        public string CategoryValueMemberPath
         {
-            get { return (string)GetValue(CategoryValuePathProperty); }
-            set { SetValue(CategoryValuePathProperty, value); }
+            get { return (string)GetValue(CategoryValueMemberPathProperty); }
+            set { SetValue(CategoryValueMemberPathProperty, value); }
         }
 
         private Dictionary<string, List<double>> _values = new Dictionary<string, List<double>>();
@@ -403,9 +403,9 @@ namespace AmCharts.Windows.QuickCharts
         private void ProcessCategoryData()
         {
             _categoryValues.Clear();
-            if (this.DataSource != null && !string.IsNullOrEmpty(CategoryValuePath))
+            if (this.DataSource != null && !string.IsNullOrEmpty(CategoryValueMemberPath))
             {
-                BindingEvaluator eval = new BindingEvaluator(CategoryValuePath);
+                BindingEvaluator eval = new BindingEvaluator(CategoryValueMemberPath);
                 foreach (object dataItem in this.DataSource)
                 {
                     _categoryValues.Add(eval.Eval(dataItem).ToString());

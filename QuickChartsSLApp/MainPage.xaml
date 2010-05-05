@@ -10,7 +10,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <amq:SerialChart x:Name="chart1"
-                         DataSource="{Binding Data}" CategoryValuePath="cat1"
+                         DataSource="{Binding Data}" CategoryValueMemberPath="cat1"
                          Background="LightBlue"
                          BorderBrush="Black"
                          BorderThickness="1"
