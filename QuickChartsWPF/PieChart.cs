@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace AmCharts.Windows.QuickCharts
 {
@@ -18,7 +19,7 @@ namespace AmCharts.Windows.QuickCharts
         {
             this.DefaultStyleKey = typeof(PieChart);
             this.LayoutUpdated += new EventHandler(OnLayoutUpdated);
-            this._slices.CollectionChanged += new NotifyCollectionChangedEventHandler(OnSlicedCollectionChanged);
+            this._slices.CollectionChanged += new NotifyCollectionChangedEventHandler(OnSlicesCollectionChanged);
         }
 
 
@@ -173,8 +174,21 @@ namespace AmCharts.Windows.QuickCharts
                 {
                     _titles.Add(titleEval.Eval(dataItem).ToString());
                     _values.Add((double)valueEval.Eval(dataItem));
+                    if (dataItem is INotifyPropertyChanged)
+                    {
+                        (dataItem as INotifyPropertyChanged).PropertyChanged -= OnDataSourceItemPropertyChanged;
+                        (dataItem as INotifyPropertyChanged).PropertyChanged += new PropertyChangedEventHandler(OnDataSourceItemPropertyChanged);
+                    }
                 }
                 _total = _values.Sum();
+            }
+        }
+
+        void OnDataSourceItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == TitleMemberPath || e.PropertyName == ValueMemberPath)
+            {
+                ProcessData();
             }
         }
 
@@ -286,7 +300,7 @@ namespace AmCharts.Windows.QuickCharts
             }
         }
 
-        void OnSlicedCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void OnSlicesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             UpdateLegend();
         }

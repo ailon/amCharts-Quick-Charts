@@ -4,6 +4,11 @@
     xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts.SL"
     Loaded="UserControl_Loaded">
     <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
         <amq:PieChart Name="pie1" TitleMemberPath="Title" ValueMemberPath="Value">
             <amq:PieChart.Brushes>
                 <RadialGradientBrush GradientOrigin="0,0" Center="0,0" RadiusX="1" RadiusY="1">
@@ -16,6 +21,11 @@
                 </RadialGradientBrush>
             </amq:PieChart.Brushes>
         </amq:PieChart>
+        
+        <StackPanel Grid.Row="1">
+            <Button x:Name="AddDataButton" Content="Add data" Click="AddDataButton_Click" />
+            <Button x:Name="RealTimeDataChanges" Content="Real-time data changes" Click="RealTimeDataChanges_Click" />
+        </StackPanel>
 
     </Grid>
 </UserControl>

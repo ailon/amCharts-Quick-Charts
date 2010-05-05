@@ -4,7 +4,17 @@
     xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts"
     Title="PieChart" Height="500" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <amq:PieChart Name="pie1" TitleMemberPath="Title" ValueMemberPath="Value" />
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         
+        <amq:PieChart Name="pie1" TitleMemberPath="Title" ValueMemberPath="Value" />
+
+        <StackPanel Grid.Row="1">
+            <Button x:Name="AddDataButton" Content="Add data" Click="AddDataButton_Click" />
+            <Button x:Name="RealTimeDataChanges" Content="Real-time data changes" Click="RealTimeDataChanges_Click" />
+        </StackPanel>
+
     </Grid>
 </Window>
