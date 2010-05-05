@@ -89,6 +89,18 @@ namespace AmCharts.Windows.QuickCharts.Design
             builder.AddCustomAttributes(typeof(ColumnGraph), "ColumnWidthAllocation",
                 new CategoryAttribute("Appearance"));
 
+            /// Pie Chart
+            builder.AddCustomAttributes(typeof(PieChart), "DataSource",
+                new CategoryAttribute("Data"));
+
+            builder.AddCustomAttributes(typeof(PieChart), "TitleMemberPath",
+                new CategoryAttribute("Data"));
+
+            builder.AddCustomAttributes(typeof(PieChart), "ValueMemberPath",
+                new CategoryAttribute("Data"));
+
+            builder.AddCustomAttributes(typeof(PieChart), "LegendVisibility",
+                new CategoryAttribute("Appearance"));
 
         }
 
@@ -106,6 +118,11 @@ namespace AmCharts.Windows.QuickCharts.Design
                     typeof(System.Windows.Media.RadialGradientBrush),
                     typeof(System.Windows.Media.ImageBrush)));
 
+            builder.AddCustomAttributes(typeof(PieChart), "Brushes",
+                new NewItemTypesAttribute(typeof(System.Windows.Media.SolidColorBrush),
+                    typeof(System.Windows.Media.LinearGradientBrush),
+                    typeof(System.Windows.Media.RadialGradientBrush),
+                    typeof(System.Windows.Media.ImageBrush)));
         }
 
         private static void AddDefaultPropertyAttributes(AttributeTableBuilder builder)
@@ -169,6 +186,11 @@ namespace AmCharts.Windows.QuickCharts.Design
 
             builder.AddCustomAttributes(
                 typeof(Legend),
+                new ToolboxBrowsableAttribute(false)
+                );
+
+            builder.AddCustomAttributes(
+                typeof(Slice),
                 new ToolboxBrowsableAttribute(false)
                 );
         }

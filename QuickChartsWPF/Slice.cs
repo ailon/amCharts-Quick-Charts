@@ -9,8 +9,14 @@ using System.Windows.Shapes;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Facilitates rendering of pie chart slices.
+    /// </summary>
     public class Slice : Control, ILegendItem
     {
+        /// <summary>
+        /// Instantiates Slice.
+        /// </summary>
         public Slice()
         {
             this.DefaultStyleKey = typeof(Slice);
@@ -54,6 +60,9 @@ namespace AmCharts.Windows.QuickCharts
 
         private Path _sliceVisual;
 
+        /// <summary>
+        /// Applies control template.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             _sliceVisual = (Path)TreeHelper.TemplateFindName("PART_SliceVisual", this);
@@ -64,6 +73,11 @@ namespace AmCharts.Windows.QuickCharts
         private double _radius = 0;
         private double _percentage = 0;
 
+        /// <summary>
+        /// Sets slice dimensions and renders it.
+        /// </summary>
+        /// <param name="radius">Slice radius.</param>
+        /// <param name="percentage">Percentage of the pie occupied by the slice (as 0-1 value).</param>
         public void SetDimensions(double radius, double percentage)
         {
             _radius = radius;
@@ -72,7 +86,7 @@ namespace AmCharts.Windows.QuickCharts
             RenderSlice();
         }
 
-        public void RenderSlice()
+        private void RenderSlice()
         {
             if (_sliceVisual != null)
             {

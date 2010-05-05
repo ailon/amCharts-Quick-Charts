@@ -16,6 +16,10 @@ namespace AmCharts.Windows.QuickCharts
     /// </summary>
     public class LegendItem : DependencyObject, ILegendItem
     {
+        /// <summary>
+        /// Instantiates new LegendItem object and binds it to the original chart items.
+        /// </summary>
+        /// <param name="originalItem"></param>
         public LegendItem(ILegendItem originalItem)
         {
             OriginalItem = originalItem;

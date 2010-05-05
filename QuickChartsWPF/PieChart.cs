@@ -13,12 +13,17 @@ using System.ComponentModel;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Displays pie charts.
+    /// </summary>
     public class PieChart : Control
     {
+        /// <summary>
+        /// Instantiates PieChart.
+        /// </summary>
         public PieChart()
         {
             this.DefaultStyleKey = typeof(PieChart);
-            this.LayoutUpdated += new EventHandler(OnLayoutUpdated);
             this._slices.CollectionChanged += new NotifyCollectionChangedEventHandler(OnSlicesCollectionChanged);
         }
 
@@ -280,6 +285,9 @@ namespace AmCharts.Windows.QuickCharts
         private Canvas _sliceCanvas;
         private Border _sliceCanvasDecorator;
 
+        /// <summary>
+        /// Applies control template.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             _sliceCanvasDecorator = (Border)TreeHelper.TemplateFindName("PART_SliceCanvasDecorator", this);
@@ -308,17 +316,6 @@ namespace AmCharts.Windows.QuickCharts
         private void OnGraphCanvasDecoratorSizeChanged(object sender, SizeChangedEventArgs e)
         {
             RenderSlices();
-        }
-
-        protected override Size ArrangeOverride(Size arrangeBounds)
-        {
-            //RenderSlices();
-            return base.ArrangeOverride(arrangeBounds);
-        }
-
-        private void OnLayoutUpdated(object sender, EventArgs e)
-        {
-            //RenderSlices();
         }
 
         private ObservableCollection<Slice> _slices = new ObservableCollection<Slice>();
