@@ -220,11 +220,11 @@ namespace AmCharts.Windows.QuickCharts
                 SetSliceBrush(i);
 
                 // angle
-                ((RotateTransform)_slices[i].RenderTransform).Angle = runningTotal / _total * 360;
+                ((RotateTransform)_slices[i].RenderTransform).Angle = (_total != 0 ? runningTotal / _total * 360 : 360.0 / _slices.Count * i);
                 runningTotal += _values[i];
 
                 // tooltip
-                string tooltipContent = _slices[i].Title + " : " + _values[i].ToString() + " (" + (_values[i] / _total).ToString("0.#%") + ")";
+                string tooltipContent = _slices[i].Title + " : " + _values[i].ToString() + " (" + (_total != 0 ? _values[i] / _total : 1.0 / _slices.Count).ToString("0.#%") + ")";
                 ToolTipService.SetToolTip(_slices[i], tooltipContent);
             }
         }
@@ -336,7 +336,7 @@ namespace AmCharts.Windows.QuickCharts
                 double radius = Math.Min(_sliceCanvasDecorator.ActualWidth, _sliceCanvasDecorator.ActualHeight) / 2;
                 for (int i = 0; i < _slices.Count; i++)
                 {
-                    _slices[i].SetDimensions(radius, _values[i] / _total);
+                    _slices[i].SetDimensions(radius, (_total != 0 ? _values[i] / _total : 1.0 / _slices.Count));
                     _slices[i].SetValue(Canvas.LeftProperty, center.X);
                     _slices[i].SetValue(Canvas.TopProperty, center.Y);
                 }
