@@ -29,7 +29,7 @@ namespace AmCharts.Windows.QuickCharts
 
             this.LayoutUpdated += new EventHandler(OnLayoutUpdated);
 
-            Padding = new Thickness(20);
+            Padding = new Thickness(10);
         }
 
         void OnGraphsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

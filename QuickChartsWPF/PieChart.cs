@@ -25,6 +25,8 @@ namespace AmCharts.Windows.QuickCharts
         {
             this.DefaultStyleKey = typeof(PieChart);
             this._slices.CollectionChanged += new NotifyCollectionChangedEventHandler(OnSlicesCollectionChanged);
+
+            Padding = new Thickness(10);
         }
 
 
