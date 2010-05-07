@@ -1,3 +1,10 @@
+2010-05-07 v.1.0 beta
+---------------------
+- FEATURE ADDED: added support for pie charts
+- FEATURE ADDED: added support for Area graphs in SerialChart
+- BREAKING CHANGE: renamed SerialChart.CategoryValuePath to CategoryValueMemberPath for consistency.
+- CHANGE: changed default padding to 10 (was 20)
+
 2010-02-09 v.0.8 beta
 ---------------------
 - initial release with support for column and line charts
