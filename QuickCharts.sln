@@ -1,6 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{34537016-2DAB-4F92-A543-F24FEC55F5D5}"
+	ProjectSection(SolutionItems) = preProject
+		QuickChartsWPF\docs\changelog.txt = QuickChartsWPF\docs\changelog.txt
+		QuickChartsWPF\docs\license.txt = QuickChartsWPF\docs\license.txt
+		QuickChartsWPF\docs\readme.txt = QuickChartsWPF\docs\readme.txt
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickCharts", "QuickCharts\QuickCharts.csproj", "{724CD76B-998A-49F1-BCB2-AAD9132E6D07}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWPF", "QuickChartsWPF\QuickChartsWPF.csproj", "{6A7C16D6-B63C-4006-9F20-E9D6D4EBA09C}"
@@ -14,13 +21,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWPFMetadataBlend", "QuickChartsWPFMetadataBlend\QuickChartsWPFMetadataBlend.csproj", "{673CC934-2466-49BC-8D58-0023B7D06249}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsSLMetadataBlend", "QuickChartsSLMetadataBlend\QuickChartsSLMetadataBlend.csproj", "{D5E67404-C080-4F95-B75A-108A2053FB57}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{34537016-2DAB-4F92-A543-F24FEC55F5D5}"
-	ProjectSection(SolutionItems) = preProject
-		QuickChartsWPF\docs\changelog.txt = QuickChartsWPF\docs\changelog.txt
-		QuickChartsWPF\docs\license.txt = QuickChartsWPF\docs\license.txt
-		QuickChartsWPF\docs\readme.txt = QuickChartsWPF\docs\readme.txt
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
