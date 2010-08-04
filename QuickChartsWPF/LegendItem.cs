@@ -29,6 +29,11 @@ namespace AmCharts.Windows.QuickCharts
 
         private void SetBindings()
         {
+#if WINDOWS_PHONE
+            // TODO: deal with this issue so the data is bound (updated). Can't bind to DependencyObject in SL3/WP7
+            this.Title = OriginalItem.Title;
+            this.Brush = OriginalItem.Brush;
+#else
             Binding titleBinding = new Binding("Title");
             titleBinding.Source = OriginalItem;
             BindingOperations.SetBinding(this, LegendItem.TitleProperty, titleBinding);
@@ -36,6 +41,7 @@ namespace AmCharts.Windows.QuickCharts
             Binding brushBinding = new Binding("Brush");
             brushBinding.Source = OriginalItem;
             BindingOperations.SetBinding(this, LegendItem.BrushProperty, brushBinding);
+#endif
         }
 
         /// <summary>

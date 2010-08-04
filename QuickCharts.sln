@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWPFMetadataBlend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsSLMetadataBlend", "QuickChartsSLMetadataBlend\QuickChartsSLMetadataBlend.csproj", "{D5E67404-C080-4F95-B75A-108A2053FB57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWP", "QuickChartsWP\QuickChartsWP.csproj", "{31FDBFD7-6F93-4D3C-8C1A-58D87E915EC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWPApp", "QuickChartsWPApp\QuickChartsWPApp.csproj", "{A1430171-8D41-4AC9-B280-26E592AA5ED5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +60,16 @@ Global
 		{D5E67404-C080-4F95-B75A-108A2053FB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E67404-C080-4F95-B75A-108A2053FB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5E67404-C080-4F95-B75A-108A2053FB57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31FDBFD7-6F93-4D3C-8C1A-58D87E915EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31FDBFD7-6F93-4D3C-8C1A-58D87E915EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31FDBFD7-6F93-4D3C-8C1A-58D87E915EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31FDBFD7-6F93-4D3C-8C1A-58D87E915EC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1430171-8D41-4AC9-B280-26E592AA5ED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1430171-8D41-4AC9-B280-26E592AA5ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1430171-8D41-4AC9-B280-26E592AA5ED5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A1430171-8D41-4AC9-B280-26E592AA5ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1430171-8D41-4AC9-B280-26E592AA5ED5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1430171-8D41-4AC9-B280-26E592AA5ED5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
