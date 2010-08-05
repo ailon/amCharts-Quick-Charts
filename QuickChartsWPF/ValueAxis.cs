@@ -71,13 +71,17 @@ namespace AmCharts.Windows.QuickCharts
         /// <returns>Arranged size.</returns>
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
-            foreach (TextBlock valueBox in _valueBoxes)
+            if (valueBoxesArrangeRequired)
             {
-                Size tbSize = valueBox.GetDesiredSize();
-                double newTop = (double)valueBox.GetValue(Canvas.TopProperty) - tbSize.Height / 2;
-                double newLeft = _valuesPanel.ActualWidth - tbSize.Width - 3;
-                valueBox.SetValue(Canvas.TopProperty, newTop);
-                valueBox.SetValue(Canvas.LeftProperty, newLeft);
+                foreach (TextBlock valueBox in _valueBoxes)
+                {
+                    Size tbSize = valueBox.GetDesiredSize();
+                    double newTop = (double)valueBox.GetValue(Canvas.TopProperty) - tbSize.Height / 2;
+                    double newLeft = _valuesPanel.ActualWidth - tbSize.Width - 3;
+                    valueBox.SetValue(Canvas.TopProperty, newTop);
+                    valueBox.SetValue(Canvas.LeftProperty, newLeft);
+                }
+                valueBoxesArrangeRequired = false;
             }
 
             return base.ArrangeOverride(arrangeBounds);
@@ -166,6 +170,7 @@ namespace AmCharts.Windows.QuickCharts
             _valueBoxes[index].Text = string.IsNullOrEmpty(ValueFormatString) ? _values[index].ToString() : _values[index].ToString(ValueFormatString);
         }
 
+        private bool valueBoxesArrangeRequired = true;
         private void SetObjectLocations()
         {
             for (int i = 0; i < _valueBoxes.Count; i++)
@@ -173,6 +178,7 @@ namespace AmCharts.Windows.QuickCharts
                 _valueBoxes[i].SetValue(Canvas.TopProperty, _locations[i]);
                 _valueTicks[i].SetValue(Canvas.TopProperty, _locations[i]);
             }
+            valueBoxesArrangeRequired = true;
         }
 
         /// <summary>
