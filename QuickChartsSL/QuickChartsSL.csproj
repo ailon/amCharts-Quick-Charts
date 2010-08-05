@@ -61,6 +61,9 @@
     <Compile Include="..\QuickChartsWPF\AreaGraph.cs">
       <Link>AreaGraph.cs</Link>
     </Compile>
+    <Compile Include="..\QuickChartsWPF\Balloon.cs">
+      <Link>Balloon.cs</Link>
+    </Compile>
     <Compile Include="..\QuickChartsWPF\BindingEvaluator.cs">
       <Link>BindingEvaluator.cs</Link>
     </Compile>
@@ -122,6 +125,11 @@
       <Link>Themes\AreaGraph.xaml</Link>
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\Balloon.xaml">
+      <Link>Themes\Balloon.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

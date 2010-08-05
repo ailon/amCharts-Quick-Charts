@@ -71,8 +71,56 @@ namespace AmCharts.Windows.QuickCharts
             strokeBinding.Source = this;
             indicator.SetBinding(Indicator.StrokeProperty, strokeBinding);
 
+#if WINDOWS_PHONE
+            indicator.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnIndicatorManipulationStarted);
+#else
+            indicator.MouseEnter += new MouseEventHandler(OnIndicatorMouseEnter);
+            indicator.MouseLeave += new MouseEventHandler(OnIndicatorMouseLeave);
+#endif
+
             _indicators.Add(graph, indicator);
             AddIndicatorToCanvas(indicator);
+        }
+
+#if WINDOWS_PHONE
+        void OnIndicatorManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+            DisplayBalloon((Indicator)sender);
+            e.Handled = true;
+        }
+#else
+        void OnIndicatorMouseEnter(object sender, MouseEventArgs e)
+        {
+            DisplayBalloon((Indicator)sender);
+        }
+
+        void OnIndicatorMouseLeave(object sender, MouseEventArgs e)
+        {
+            _balloon.Visibility = Visibility.Collapsed;
+        }
+#endif
+
+        private void DisplayBalloon(Indicator indicator)
+        {
+            _balloon.Text = indicator.Text;
+            _balloon.Visibility = Visibility.Visible;
+            _balloon.Measure(new Size(_graphCanvasDecorator.ActualWidth, _graphCanvasDecorator.ActualHeight));
+            double balloonLeft = (double)indicator.GetValue(Canvas.LeftProperty) - _balloon.DesiredSize.Width / 2 + indicator.ActualWidth / 2;
+            if (balloonLeft < 0)
+            {
+                balloonLeft = (double)indicator.GetValue(Canvas.LeftProperty);
+            }
+            else if (balloonLeft + _balloon.DesiredSize.Width > _graphCanvasDecorator.ActualWidth)
+            {
+                balloonLeft = (double)indicator.GetValue(Canvas.LeftProperty) - _balloon.DesiredSize.Width;
+            }
+            double balloonTop = (double)indicator.GetValue(Canvas.TopProperty) - _balloon.DesiredSize.Height - 5;
+            if (balloonTop < 0)
+            {
+                balloonTop = (double)indicator.GetValue(Canvas.TopProperty) + 17;
+            }
+            _balloon.SetValue(Canvas.LeftProperty, balloonLeft);
+            _balloon.SetValue(Canvas.TopProperty, balloonTop);
         }
 
         private void AddIndicatorToCanvas(Indicator indicator)
@@ -149,6 +197,8 @@ namespace AmCharts.Windows.QuickCharts
             AssignGridParts();
 
             AssignLegend();
+
+            AssignBalloon();
         }
 
         private void AssignGraphCanvas()
@@ -157,10 +207,15 @@ namespace AmCharts.Windows.QuickCharts
             _graphCanvasDecorator.SizeChanged += new SizeChangedEventHandler(OnGraphCanvasDecoratorSizeChanged);
             _graphCanvas = (Canvas)TreeHelper.TemplateFindName("PART_GraphCanvas", this);
 
+#if WINDOWS_PHONE
+            _graphCanvas.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnGraphCanvasManipulationStarted);
+#else
             _graphCanvas.MouseEnter += new MouseEventHandler(OnGraphCanvasMouseEnter);
             _graphCanvas.MouseMove += new System.Windows.Input.MouseEventHandler(OnGraphCanvasMouseMove);
             _graphCanvas.MouseLeave += new MouseEventHandler(OnGraphCanvasMouseLeave);
+#endif
         }
+
 
         private void AssignGridParts()
         {
@@ -172,14 +227,53 @@ namespace AmCharts.Windows.QuickCharts
             _valueAxis.SetBinding(ValueAxis.ValueFormatStringProperty, formatBinding);
 
             _categoryAxis = (CategoryAxis)TreeHelper.TemplateFindName("PART_CategoryAxis", this);
+#if WINDOWS_PHONE
+            _categoryAxis.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnGridManipulationStarted);
+            _valueAxis.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnGridManipulationStarted);
+#endif
         }
+
+#if WINDOWS_PHONE
+        void OnGridManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+            if (_legend != null)
+            {
+                if (_legend.Visibility == Visibility.Collapsed)
+                {
+                    _legend.Visibility = Visibility.Visible;
+                    _valueAxis.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    _legend.Visibility = Visibility.Collapsed;
+                    _valueAxis.Visibility = Visibility.Collapsed;
+                }
+            }
+            HideIndicators();
+        }
+#endif
 
         private void AssignLegend()
         {
             _legend = (Legend)TreeHelper.TemplateFindName("PART_Legend", this);
             _legend.LegendItemsSource = this.Graphs.Cast<ILegendItem>(); // TODO: handle changes in Graphs
+#if WINDOWS_PHONE
+            _legend.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnGridManipulationStarted);
+#endif
         }
 
+        private void AssignBalloon()
+        {
+            _balloon = (Balloon)TreeHelper.TemplateFindName("PART_Balloon", this);
+        }
+
+#if WINDOWS_PHONE
+        void OnGraphCanvasManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+            PositionIndicators(e.ManipulationOrigin);
+            SetToolTips(e.ManipulationOrigin);
+        }
+#else
         void OnGraphCanvasMouseEnter(object sender, MouseEventArgs e)
         {
             Point position = e.GetPosition(_graphCanvas);
@@ -197,6 +291,7 @@ namespace AmCharts.Windows.QuickCharts
         {
             HideIndicators();
         }
+#endif
 
         private void SetToolTips(Point position)
         {
@@ -205,8 +300,9 @@ namespace AmCharts.Windows.QuickCharts
             {
                 string tooltipContent = _graphs[i].Title + ": " + _categoryValues[index] + " | "
                     + (string.IsNullOrEmpty(ValueFormatString) ? _values[_graphs[i].ValueMemberPath][index].ToString() : _values[_graphs[i].ValueMemberPath][index].ToString(ValueFormatString));
-                ToolTipService.SetToolTip(_indicators[_graphs[i]], tooltipContent);
-                ToolTipService.SetToolTip(_graphs[i], tooltipContent);
+                //ToolTipService.SetToolTip(_indicators[_graphs[i]], tooltipContent);
+                //ToolTipService.SetToolTip(_graphs[i], tooltipContent);
+                _indicators[_graphs[i]].Text = tooltipContent;
             }
         }
 
@@ -218,6 +314,7 @@ namespace AmCharts.Windows.QuickCharts
                 _indicators[graph].SetPosition(_locations[graph.ValueMemberPath][index]);
                 _indicators[graph].Visibility = Visibility.Visible;
             }
+            _balloon.Visibility = Visibility.Collapsed;
         }
 
         private void HideIndicators()
@@ -226,6 +323,7 @@ namespace AmCharts.Windows.QuickCharts
             {
                 _indicators[graph].Visibility = Visibility.Collapsed;
             }
+            _balloon.Visibility = Visibility.Collapsed;
         }
 
         void OnGraphCanvasDecoratorSizeChanged(object sender, SizeChangedEventArgs e)
@@ -292,6 +390,8 @@ namespace AmCharts.Windows.QuickCharts
         private ValueGrid _valueGrid;
 
         private Legend _legend;
+
+        private Balloon _balloon;
 
         /// <summary>
         /// Identifies <see cref="DataSource"/> dependency property.
@@ -829,8 +929,7 @@ namespace AmCharts.Windows.QuickCharts
         /// </summary>
         public static readonly DependencyProperty LegendVisibilityProperty = DependencyProperty.Register(
             "LegendVisibility", typeof(Visibility), typeof(SerialChart),
-            new PropertyMetadata(Visibility.Visible)
-            );
+            new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
         /// Gets or sets visibility of the chart legend.

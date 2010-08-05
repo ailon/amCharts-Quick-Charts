@@ -7,7 +7,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="amq:Legend">
-                    <Border>
+                    <Border Background="Transparent">
                         <ItemsPresenter />
                     </Border>
                 </ControlTemplate>

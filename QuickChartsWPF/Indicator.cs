@@ -67,5 +67,24 @@ namespace AmCharts.Windows.QuickCharts
             get { return (Brush)GetValue(Indicator.StrokeProperty); }
             set { SetValue(Indicator.StrokeProperty, value); }
         }
+
+        /// <summary>
+        /// Identifies <see cref="Text"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
+            "Text", typeof(string), typeof(Indicator),
+            new PropertyMetadata(null)
+            );
+
+        /// <summary>
+        /// Gets or sets balloon text.
+        /// This is a dependency property.
+        /// </summary>
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
     }
 }

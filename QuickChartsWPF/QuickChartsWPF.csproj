@@ -67,6 +67,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Themes\Balloon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\ColumnGraph.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -141,6 +145,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Balloon.cs" />
     <Compile Include="BindingEvaluator.cs" />
     <Compile Include="ColumnGraph.cs" />
     <Compile Include="CategoryAxis.cs" />

@@ -14,5 +14,6 @@
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/Themes/Indicator.xaml" />
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/Themes/PieChart.xaml" />
         <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/Themes/Slice.xaml" />
+        <ResourceDictionary Source="/AmCharts.Windows.QuickCharts.SL;component/Themes/Balloon.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
