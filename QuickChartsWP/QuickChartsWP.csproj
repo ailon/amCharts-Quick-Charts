@@ -147,11 +147,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\QuickChartsWPF\Themes\PieChart.xaml">
-      <Link>Themes\PieChart.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\QuickChartsWPF\Themes\Slice.xaml">
       <Link>Themes\Slice.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +163,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\PieChart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

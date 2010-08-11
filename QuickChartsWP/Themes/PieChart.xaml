@@ -15,19 +15,18 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Border x:Name="PART_SliceCanvasDecorator">
+                            <Border x:Name="PART_SliceCanvasDecorator" Background="Transparent">
                                 <Canvas x:Name="PART_SliceCanvas" />
                             </Border>
 
-                            <amq:Legend x:Name="PART_Legend" Grid.Column="2" Grid.Row="0" 
+                            <amq:Legend x:Name="PART_Legend" HorizontalAlignment="Right" VerticalAlignment="Top"
                                         Margin="10,0,0,0" 
                                         Visibility="{TemplateBinding LegendVisibility}"
                                         />
 
-                            <Canvas Grid.Column="0">
+                            <Canvas>
                                 <amq:Balloon x:Name="PART_Balloon" 
                                              BorderBrush="{TemplateBinding Foreground}" 
                                              BorderThickness="2"

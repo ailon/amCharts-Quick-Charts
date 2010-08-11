@@ -30,6 +30,8 @@ namespace AmCharts.Windows.QuickCharts
         }
 
 
+        private Balloon _balloon;
+
         //// LEGEND
 
         private Legend _legend;
@@ -227,7 +229,8 @@ namespace AmCharts.Windows.QuickCharts
 
                 // tooltip
                 string tooltipContent = _slices[i].Title + " : " + _values[i].ToString() + " (" + (_total != 0 ? _values[i] / _total : 1.0 / _slices.Count).ToString("0.#%") + ")";
-                ToolTipService.SetToolTip(_slices[i], tooltipContent);
+                //ToolTipService.SetToolTip(_slices[i], tooltipContent);
+                _slices[i].ToolTipText = tooltipContent;
             }
             UpdateLegend();
         }
@@ -264,9 +267,45 @@ namespace AmCharts.Windows.QuickCharts
                 slice.RenderTransform = new RotateTransform();
                 slice.RenderTransformOrigin = new Point(0, 0);
                 _slices.Add(slice);
+#if WINDOWS_PHONE
+                slice.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnSliceManipulationStarted);
+#else
+                slice.MouseEnter += new MouseEventHandler(OnSliceMouseEnter);
+                slice.MouseLeave += new MouseEventHandler(OnSliceMouseLeave);
+                slice.MouseMove += new MouseEventHandler(OnSliceMouseMove);
+#endif
                 AddSliceToCanvas(slice);
             }
         }
+
+#if WINDOWS_PHONE
+        void OnSliceManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+            GeneralTransform gt = (sender as Slice).TransformToVisual(_sliceCanvasDecorator);
+            DisplayBalloon(sender as Slice, gt.Transform(e.ManipulationOrigin));
+            e.Handled = true;
+        }
+
+        protected override void OnManipulationStarted(ManipulationStartedEventArgs e)
+        {
+            HideBaloon();
+        }
+#else
+        void OnSliceMouseEnter(object sender, MouseEventArgs e)
+        {
+            DisplayBalloon(sender as Slice, e.GetPosition(_sliceCanvasDecorator));
+        }
+
+        void OnSliceMouseMove(object sender, MouseEventArgs e)
+        {
+            DisplayBalloon(sender as Slice, e.GetPosition(_sliceCanvasDecorator));
+        }
+
+        void OnSliceMouseLeave(object sender, MouseEventArgs e)
+        {
+            HideBaloon();
+        }
+#endif
 
 
         private void AddSlicesToCanvas()
@@ -296,6 +335,8 @@ namespace AmCharts.Windows.QuickCharts
             _sliceCanvasDecorator = (Border)TreeHelper.TemplateFindName("PART_SliceCanvasDecorator", this);
             _sliceCanvasDecorator.SizeChanged += new SizeChangedEventHandler(OnGraphCanvasDecoratorSizeChanged);
             _sliceCanvas = (Canvas)TreeHelper.TemplateFindName("PART_SliceCanvas", this);
+
+            _balloon = (Balloon)TreeHelper.TemplateFindName("PART_Balloon", this);
 
             AddSlicesToCanvas();
 
@@ -378,5 +419,32 @@ namespace AmCharts.Windows.QuickCharts
             set { throw new NotSupportedException(); }
         }
 
+        private void DisplayBalloon(Slice slice, Point position)
+        {
+            _balloon.Text = slice.ToolTipText;
+            _balloon.Visibility = Visibility.Visible;
+            _balloon.Measure(new Size(_sliceCanvasDecorator.ActualWidth, _sliceCanvasDecorator.ActualHeight));
+            double balloonLeft = position.X - _balloon.DesiredSize.Width / 2;
+            if (balloonLeft < 0)
+            {
+                balloonLeft = position.X;
+            }
+            else if (balloonLeft + _balloon.DesiredSize.Width > _sliceCanvasDecorator.ActualWidth)
+            {
+                balloonLeft = position.X - _balloon.DesiredSize.Width;
+            }
+            double balloonTop = position.Y - _balloon.DesiredSize.Height - 5;
+            if (balloonTop < 0)
+            {
+                balloonTop = position.Y + 17;
+            }
+            _balloon.SetValue(Canvas.LeftProperty, balloonLeft);
+            _balloon.SetValue(Canvas.TopProperty, balloonTop);
+        }
+
+        private void HideBaloon()
+        {
+            _balloon.Visibility = Visibility.Collapsed;
+        }
     }
 }

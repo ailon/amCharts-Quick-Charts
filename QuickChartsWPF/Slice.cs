@@ -135,5 +135,7 @@ namespace AmCharts.Windows.QuickCharts
             figure.Segments.Add(new LineSegment() { Point = new Point(0, 0) });
         }
 
+        public string ToolTipText { get; set; }
+
     }
 }
