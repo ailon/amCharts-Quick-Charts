@@ -229,6 +229,7 @@ namespace AmCharts.Windows.QuickCharts
                 string tooltipContent = _slices[i].Title + " : " + _values[i].ToString() + " (" + (_total != 0 ? _values[i] / _total : 1.0 / _slices.Count).ToString("0.#%") + ")";
                 ToolTipService.SetToolTip(_slices[i], tooltipContent);
             }
+            UpdateLegend();
         }
 
         private void SetSliceBrush(int index)
