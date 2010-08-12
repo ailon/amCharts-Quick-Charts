@@ -794,7 +794,7 @@ namespace AmCharts.Windows.QuickCharts
             if (_valueAxis != null && _valueGridStep > 0)
             {
                 _valueGridValues.Clear();
-                for (double d = _adjustedMinimumValue; d <= _adjustedMaximumValue; d += _valueGridStep)
+                for (double d = _adjustedMinimumValue + _valueGridStep; d <= _adjustedMaximumValue; d += _valueGridStep)
                 {
                     _valueGridValues.Add(d);
                 }
