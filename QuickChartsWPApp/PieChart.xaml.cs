@@ -26,6 +26,7 @@ namespace QuickChartsWPApp
             new PData() { title = "slice #1", value = 30 },
             new PData() { title = "slice #2", value = 60 },
             new PData() { title = "slice #3", value = 40 },
+            new PData() { title = "slice #4", value = 10 },
         };
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)

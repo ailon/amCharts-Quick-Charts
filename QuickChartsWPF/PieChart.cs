@@ -289,6 +289,19 @@ namespace AmCharts.Windows.QuickCharts
         protected override void OnManipulationStarted(ManipulationStartedEventArgs e)
         {
             HideBaloon();
+            SwitchLegend();
+        }
+
+        private void SwitchLegend()
+        {
+            if (_legend.Visibility == Visibility.Visible)
+            {
+                _legend.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                _legend.Visibility = Visibility.Visible;
+            }
         }
 #else
         void OnSliceMouseEnter(object sender, MouseEventArgs e)
@@ -341,8 +354,21 @@ namespace AmCharts.Windows.QuickCharts
             AddSlicesToCanvas();
 
             _legend = (Legend)TreeHelper.TemplateFindName("PART_Legend", this);
+
+#if WINDOWS_PHONE
+            _legend.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnLegendManipulationStarted);
+#endif
+
             UpdateLegend();
         }
+
+#if WINDOWS_PHONE
+        void OnLegendManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+            SwitchLegend();
+            e.Handled = true;
+        }
+#endif
 
         private void UpdateLegend()
         {
