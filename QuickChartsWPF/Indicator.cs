@@ -28,8 +28,8 @@ namespace AmCharts.Windows.QuickCharts
         /// <param name="position">Data point coordinates.</param>
         public void SetPosition(Point position)
         {
-            SetValue(Canvas.LeftProperty, position.X - ActualWidth / 2);
-            SetValue(Canvas.TopProperty, position.Y - ActualHeight / 2);
+            SetValue(Canvas.LeftProperty, position.X);
+            SetValue(Canvas.TopProperty, position.Y);
         }
 
         /// <summary>
