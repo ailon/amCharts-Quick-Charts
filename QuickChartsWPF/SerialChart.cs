@@ -311,10 +311,10 @@ namespace AmCharts.Windows.QuickCharts
             int index = GetIndexByCoordinate(position.X);
             foreach (SerialGraph graph in _graphs)
             {
-                _indicators[graph].SetPosition(_locations[graph.ValueMemberPath][index]);
                 _indicators[graph].Visibility = Visibility.Visible;
+                _indicators[graph].SetPosition(_locations[graph.ValueMemberPath][index]);
             }
-            _balloon.Visibility = Visibility.Collapsed;
+            //_balloon.Visibility = Visibility.Collapsed;
         }
 
         private void HideIndicators()
@@ -331,6 +331,7 @@ namespace AmCharts.Windows.QuickCharts
             _plotAreaInnerSize = new Size(_graphCanvasDecorator.ActualWidth, _graphCanvasDecorator.ActualHeight);
             AdjustGridCount();
             SetLocations();
+            HideIndicators();
         }
 
         private void AdjustGridCount()

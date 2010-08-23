@@ -396,6 +396,7 @@ namespace AmCharts.Windows.QuickCharts
                 ReallocateSlices();
 
             ArrangeSlices();
+            HideBaloon();
         }
 
         private void ArrangeSlices()
@@ -470,7 +471,10 @@ namespace AmCharts.Windows.QuickCharts
 
         private void HideBaloon()
         {
-            _balloon.Visibility = Visibility.Collapsed;
+            if (_balloon != null)
+            {
+                _balloon.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

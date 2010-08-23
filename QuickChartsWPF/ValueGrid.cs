@@ -87,14 +87,20 @@ namespace AmCharts.Windows.QuickCharts
         {
             if (_gridCanvas != null)
             {
-                _gridLines[i].X2 = _gridCanvas.ActualWidth;
+                if (_gridLines[i].X2 != _gridCanvas.ActualWidth)
+                {
+                    _gridLines[i].X2 = _gridCanvas.ActualWidth;
+                }
             }
         }
 
         private void SetLineY(int i)
         {
-            _gridLines[i].Y1 = _locations[i];
-            _gridLines[i].Y2 = _gridLines[i].Y1;
+            if (_gridLines[i].Y1 != _locations[i])
+            {
+                _gridLines[i].Y1 = _locations[i];
+                _gridLines[i].Y2 = _gridLines[i].Y1;
+            }
         }
 
         private void AddGridLines(int count)

@@ -50,15 +50,32 @@ namespace AmCharts.Windows.QuickCharts
         /// </summary>
         public override void Render()
         {
-            _areaGraph.Points = GetAreaPoints();
+            PointCollection newPoints = GetAreaPoints();
+            if (_areaGraph.Points.Count != newPoints.Count)
+            {
+                _areaGraph.Points = newPoints;
+            }
+            else
+            {
+                for (int i = 0; i < newPoints.Count; i++)
+                {
+                    if (!_areaGraph.Points[i].Equals(newPoints[i]))
+                    {
+                        _areaGraph.Points = newPoints;
+                        break;
+                    }
+                }
+            }
         }
 
         private PointCollection GetAreaPoints()
         {
-            if (Locations == null)
-                return null;
 
             PointCollection points = new PointCollection();
+
+            if (Locations == null)
+                return points;
+
             CopyLocationsToPoints(points);
 
             if (points.Count > 0)
