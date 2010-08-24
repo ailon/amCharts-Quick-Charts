@@ -193,6 +193,11 @@ namespace AmCharts.Windows.QuickCharts.Design
                 typeof(Slice),
                 new ToolboxBrowsableAttribute(false)
                 );
+
+            builder.AddCustomAttributes(
+                typeof(Balloon),
+                new ToolboxBrowsableAttribute(false)
+                );
         }
 
 #if !BLEND

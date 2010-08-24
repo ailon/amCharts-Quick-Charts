@@ -191,9 +191,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SerialChart.Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="docs\changelog.txt" />
   </ItemGroup>
   <ItemGroup>

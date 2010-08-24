@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AmCharts.Windows.QuickCharts.Design</RootNamespace>
-    <AssemblyName>AmCharts.Windows.QuickCharts.SL.Expression.Design</AssemblyName>
+    <AssemblyName>AmCharts.Windows.QuickCharts.SL.Design</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -67,6 +67,10 @@
       <Project>{14CA26A9-E5D8-4E18-A058-F38B73AB98F3}</Project>
       <Name>QuickChartsSL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AmCharts.Windows.QuickCharts.PieChart.24x24.png" />
+    <EmbeddedResource Include="AmCharts.Windows.QuickCharts.SerialChart.24x24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
