@@ -286,6 +286,10 @@ namespace AmCharts.Windows.QuickCharts
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Reacts to touch manipulations.
+        /// </summary>
+        /// <param name="e">Manipulation event arguments</param>
         protected override void OnManipulationStarted(ManipulationStartedEventArgs e)
         {
             HideBaloon();

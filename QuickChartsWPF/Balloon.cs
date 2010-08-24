@@ -13,8 +13,14 @@ using System.Windows.Shapes;
 
 namespace AmCharts.Windows.QuickCharts
 {
+    /// <summary>
+    /// Represents a value balloon (tooltip).
+    /// </summary>
     public class Balloon : Control
     {
+        /// <summary>
+        /// Instantiates Balloon.
+        /// </summary>
         public Balloon()
         {
             this.DefaultStyleKey = typeof(Balloon);
