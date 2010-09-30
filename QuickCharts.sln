@@ -24,11 +24,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsSLMetadataBlend"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWP", "QuickChartsWP\QuickChartsWP.csproj", "{31FDBFD7-6F93-4D3C-8C1A-58D87E915EC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWPApp", "QuickChartsWPApp\QuickChartsWPApp.csproj", "{A1430171-8D41-4AC9-B280-26E592AA5ED5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWPApp_beta", "QuickChartsWPApp\QuickChartsWPApp_beta.csproj", "{A1430171-8D41-4AC9-B280-26E592AA5ED5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsSLMetadata", "QuickChartsSLMetadata\QuickChartsSLMetadata.csproj", "{3AB3B532-3C79-4808-9ED9-6268C031ABD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWPMetadata", "QuickChartsWPMetadata\QuickChartsWPMetadata.csproj", "{E559C06F-8813-44EA-A0EE-9B992B8505A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickChartsWP7App", "QuickChartsWP7App\QuickChartsWP7App.csproj", "{135FED75-9BFE-424D-8871-CE7EABBFBA9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +84,12 @@ Global
 		{E559C06F-8813-44EA-A0EE-9B992B8505A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E559C06F-8813-44EA-A0EE-9B992B8505A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E559C06F-8813-44EA-A0EE-9B992B8505A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{135FED75-9BFE-424D-8871-CE7EABBFBA9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{135FED75-9BFE-424D-8871-CE7EABBFBA9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{135FED75-9BFE-424D-8871-CE7EABBFBA9D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{135FED75-9BFE-424D-8871-CE7EABBFBA9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{135FED75-9BFE-424D-8871-CE7EABBFBA9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{135FED75-9BFE-424D-8871-CE7EABBFBA9D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

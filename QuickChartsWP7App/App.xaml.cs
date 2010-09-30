@@ -13,20 +13,37 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace QuickChartsWPApp
+namespace QuickChartsWP7App
 {
     public partial class App : Application
     {
-
-        // Easy access to the root frame
+        /// <summary>
+        /// Provides easy access to the root frame of the Phone Application.
+        /// </summary>
+        /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
 
-        // Constructor
+        /// <summary>
+        /// Constructor for the Application object.
+        /// </summary>
         public App()
         {
             // Global handler for uncaught exceptions. 
-            // Note that exceptions thrown by ApplicationBarItem.Click will not get caught here.
             UnhandledException += Application_UnhandledException;
+
+            // Show graphics profiling information while debugging.
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                // Display the current frame rate counters.
+                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+
+                // Show the areas of the app that are being redrawn in each frame.
+                //Application.Current.Host.Settings.EnableRedrawRegions = true;
+
+                // Enable non-production analysis visualization mode, 
+                // which shows areas of a page that are being GPU accelerated with a colored overlay.
+                //Application.Current.Host.Settings.EnableCacheVisualization = true;
+            }
 
             // Standard Silverlight initialization
             InitializeComponent();
@@ -60,7 +77,7 @@ namespace QuickChartsWPApp
         }
 
         // Code to execute if a navigation fails
-        void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             if (System.Diagnostics.Debugger.IsAttached)
             {

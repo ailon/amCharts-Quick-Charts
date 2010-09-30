@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QuickChartsWPApp")]
+[assembly: AssemblyTitle("QuickChartsWP7App")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft IT")]
-[assembly: AssemblyProduct("QuickChartsWPApp")]
-[assembly: AssemblyCopyright("Copyright © Microsoft IT 2009")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("QuickChartsWP7App")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e8b7c0f7-bc64-4bf2-952f-3166673979b9")]
+[assembly: Guid("3b3544f2-deac-40b9-a366-084fe9067726")]
 
 // Version information for an assembly consists of the following four values:
 //
