@@ -32,6 +32,7 @@
             <amq:SerialChart x:Name="chart1" DataSource="{Binding Data}" CategoryValueMemberPath="cat1"
                          AxisForeground="White"
                          PlotAreaBackground="Black"
+                             MinimumCategoryGridStep="200"
                          GridStroke="DarkGray">
                 <amq:SerialChart.Graphs>
                     <amq:LineGraph ValueMemberPath="val1" Title="Line #1" Brush="Blue" />

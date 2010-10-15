@@ -296,23 +296,29 @@ namespace AmCharts.Windows.QuickCharts
         private void SetToolTips(Point position)
         {
             int index = GetIndexByCoordinate(position.X);
-            for (int i = 0; i < _graphs.Count; i++)
+            if (index > -1)
             {
-                string tooltipContent = _graphs[i].Title + ": " + _categoryValues[index] + " | "
-                    + (string.IsNullOrEmpty(ValueFormatString) ? _values[_graphs[i].ValueMemberPath][index].ToString() : _values[_graphs[i].ValueMemberPath][index].ToString(ValueFormatString));
-                //ToolTipService.SetToolTip(_indicators[_graphs[i]], tooltipContent);
-                //ToolTipService.SetToolTip(_graphs[i], tooltipContent);
-                _indicators[_graphs[i]].Text = tooltipContent;
+                for (int i = 0; i < _graphs.Count; i++)
+                {
+                    string tooltipContent = _graphs[i].Title + ": " + _categoryValues[index] + " | "
+                        + (string.IsNullOrEmpty(ValueFormatString) ? _values[_graphs[i].ValueMemberPath][index].ToString() : _values[_graphs[i].ValueMemberPath][index].ToString(ValueFormatString));
+                    //ToolTipService.SetToolTip(_indicators[_graphs[i]], tooltipContent);
+                    //ToolTipService.SetToolTip(_graphs[i], tooltipContent);
+                    _indicators[_graphs[i]].Text = tooltipContent;
+                }
             }
         }
 
         private void PositionIndicators(Point position)
         {
             int index = GetIndexByCoordinate(position.X);
-            foreach (SerialGraph graph in _graphs)
+            if (index > -1)
             {
-                _indicators[graph].Visibility = Visibility.Visible;
-                _indicators[graph].SetPosition(_locations[graph.ValueMemberPath][index]);
+                foreach (SerialGraph graph in _graphs)
+                {
+                    _indicators[graph].Visibility = Visibility.Visible;
+                    _indicators[graph].SetPosition(_locations[graph.ValueMemberPath][index]);
+                }
             }
             //_balloon.Visibility = Visibility.Collapsed;
         }
@@ -553,10 +559,14 @@ namespace AmCharts.Windows.QuickCharts
         {
             if (_values.Count > 0)
             {
-                _minimumValue = (from vs in _values.Values
-                                 select vs.Min()).Min();
-                _maximumValue = (from vs in _values.Values
-                                 select vs.Max()).Max();
+                var minimumValues = from vs in _values.Values
+                                    where vs.Count > 0
+                                    select vs.Min();
+                _minimumValue = minimumValues.Count() > 0 ? minimumValues.Min() : 0;
+                var maximumValues = from vs in _values.Values
+                                    where vs.Count > 0
+                                    select vs.Max();
+                _maximumValue = maximumValues.Count() > 0 ? maximumValues.Max() : 9;
 
                 AdjustMinMax(_valueGridCount);
 
@@ -744,12 +754,17 @@ namespace AmCharts.Windows.QuickCharts
 
         private int GetIndexByCoordinate(double x)
         {
-            int count = _values[_values.Keys.First()].Count;
-            double step = _plotAreaInnerSize.Width / count;
+            int index = -1;
 
-            int index = (int)Math.Round((x - step / 2) / step);
-            index = Math.Max(0, index);
-            index = Math.Min(count - 1, index);
+            if (_values.Count > 0)
+            {
+                int count = _values[_values.Keys.First()].Count;
+                double step = _plotAreaInnerSize.Width / count;
+
+                index = (int)Math.Round((x - step / 2) / step);
+                index = Math.Max(0, index);
+                index = Math.Min(count - 1, index);
+            }
 
             return index;
         }
