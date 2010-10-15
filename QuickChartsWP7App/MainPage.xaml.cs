@@ -50,7 +50,7 @@ namespace QuickChartsWPApp
         {
             this.DataContext = this;
         }
-
+    }
 
     public class TestDataItem
     {
