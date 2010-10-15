@@ -26,7 +26,7 @@ namespace QuickChartsWPApp
         private ObservableCollection<TestDataItem> _data = new ObservableCollection<TestDataItem>()
         {
             new TestDataItem() { cat1 = "cat1", val1=5, val2=15, val3=12},
-            new TestDataItem() { cat1 = "cat2", val1=15.2, val2=1.5, val3=2.1},
+            new TestDataItem() { cat1 = "cat2", val1=15.2, val2=1.5, val3=2.1M},
             new TestDataItem() { cat1 = "cat3", val1=25, val2=5, val3=2},
             new TestDataItem() { cat1 = "cat4", val1=8.1, val2=1, val3=22},
             new TestDataItem() { cat1 = "cat5", val1=8.1, val2=1, val3=22},
@@ -57,6 +57,6 @@ namespace QuickChartsWPApp
         public string cat1 { get; set; }
         public double val1 { get; set; }
         public double val2 { get; set; }
-        public double val3 { get; set; }
+        public decimal val3 { get; set; }
     }
 }

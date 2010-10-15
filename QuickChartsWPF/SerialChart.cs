@@ -524,7 +524,7 @@ namespace AmCharts.Windows.QuickCharts
         {
             foreach (string path in paths)
             {
-                _values[path].Add((double)bindingEvaluators[path].Eval(dataItem));
+                _values[path].Add(Convert.ToDouble(bindingEvaluators[path].Eval(dataItem)));
             }
         }
 
