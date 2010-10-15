@@ -1,3 +1,7 @@
+2010-09-30 v.1.1 beta R2
+------------------------
+- just a recompilation of Windows Phone 7 version with RTM tools
+
 2010-08-25 v.1.1 beta
 ---------------------
 - FEATURE ADDED: Support for Windows Phone 7
