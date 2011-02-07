@@ -279,11 +279,13 @@ namespace AmCharts.Windows.QuickCharts
         }
 
 #if WINDOWS_PHONE
+        private bool isSliceEvent = false;
         void OnSliceManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
             GeneralTransform gt = (sender as Slice).TransformToVisual(_sliceCanvasDecorator);
             DisplayBalloon(sender as Slice, gt.Transform(e.ManipulationOrigin));
-            e.Handled = true;
+            //e.Handled = true;
+            isSliceEvent = true;
         }
 
         /// <summary>
@@ -292,8 +294,15 @@ namespace AmCharts.Windows.QuickCharts
         /// <param name="e">Manipulation event arguments</param>
         protected override void OnManipulationStarted(ManipulationStartedEventArgs e)
         {
-            HideBaloon();
-            SwitchLegend();
+            if (!isSliceEvent)
+            {
+                HideBaloon();
+                SwitchLegend();
+            }
+            else
+            {
+                isSliceEvent = false;
+            }
         }
 
         private void SwitchLegend()
