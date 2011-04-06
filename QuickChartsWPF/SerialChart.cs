@@ -270,6 +270,10 @@ namespace AmCharts.Windows.QuickCharts
 #if WINDOWS_PHONE
         void OnGraphCanvasManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
+            if (_balloon != null)
+            {
+                _balloon.Visibility = Visibility.Collapsed;
+            }
             PositionIndicators(e.ManipulationOrigin);
             SetToolTips(e.ManipulationOrigin);
         }
