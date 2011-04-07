@@ -29,6 +29,10 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentGrid" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             <amq:SerialChart x:Name="chart1" DataSource="{Binding Data}" CategoryValueMemberPath="cat1"
                          AxisForeground="White"
                          PlotAreaBackground="Black"
@@ -40,7 +44,8 @@
                     <amq:AreaGraph ValueMemberPath="val3" Title="Area #1" Brush="#80FF0000" />
                 </amq:SerialChart.Graphs>
             </amq:SerialChart>
-            
+
+            <Button Content="Rebind" Click="Button_Click" Grid.Row="1" />
         </Grid>
     </Grid>
     

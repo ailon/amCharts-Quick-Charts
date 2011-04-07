@@ -371,13 +371,13 @@ namespace AmCharts.Windows.QuickCharts
 
         private void AdjustValueGridCount()
         {
-            int oldCount = _valueGridCount;
-            _valueGridCount = (int)(_plotAreaInnerSize.Height / (MinimumValueGridStep * 1.1));
-            _valueGridCount = Math.Max(1, _valueGridCount);
+            int oldCount = _desiredValueGridCount;
+            _desiredValueGridCount = (int)(_plotAreaInnerSize.Height / (MinimumValueGridStep * 1.1));
+            _desiredValueGridCount = Math.Max(1, _valueGridCount);
 
-            if (oldCount != _valueGridCount)
+            if (oldCount != _desiredValueGridCount)
             {
-                if (_valueGridCount > 1)
+                if (_desiredValueGridCount > 1)
                 {
                     _valueAxis.Visibility = Visibility.Visible;
                     _valueGrid.Visibility = Visibility.Visible;
@@ -572,7 +572,7 @@ namespace AmCharts.Windows.QuickCharts
                                     select vs.Max();
                 _maximumValue = maximumValues.Count() > 0 ? maximumValues.Max() : 9;
 
-                AdjustMinMax(_valueGridCount);
+                AdjustMinMax(_desiredValueGridCount);
 
                 SetValueGridValues();
 
@@ -872,6 +872,7 @@ namespace AmCharts.Windows.QuickCharts
 
 
         private int _valueGridCount = 5;
+        private int _desiredValueGridCount = 5;
         private int _categoryGridCount = 5;
 
         /// <summary>
