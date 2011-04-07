@@ -1,3 +1,11 @@
+2010-04-07 v.1.1
+----------------
+- BUGFIX: exception was thrown when there was no data
+- BUGFIX: it wasn't possible to use values of type decimal (and other types that can't be cast directly to double) as data
+- BUGFIX: Value grid/axis was displayed differently for the same data on rebinding
+- BUGFIX: Windows Phone: using PieChart in a Pivot sometimes resulted in exception
+- BUGFIX: Windows Phone: it was nearly impossible to tap a bullet on line chart to see the balloon
+
 2010-09-30 v.1.1 beta R2
 ------------------------
 - just a recompilation of Windows Phone 7 version with RTM tools
