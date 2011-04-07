@@ -373,7 +373,7 @@ namespace AmCharts.Windows.QuickCharts
         {
             int oldCount = _desiredValueGridCount;
             _desiredValueGridCount = (int)(_plotAreaInnerSize.Height / (MinimumValueGridStep * 1.1));
-            _desiredValueGridCount = Math.Max(1, _valueGridCount);
+            _desiredValueGridCount = Math.Max(1, _desiredValueGridCount);
 
             if (oldCount != _desiredValueGridCount)
             {
