@@ -133,11 +133,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\QuickChartsWPF\Themes\Indicator.xaml">
-      <Link>Themes\Indicator.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="..\QuickChartsWPF\Themes\Legend.xaml">
       <Link>Themes\Legend.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
@@ -164,6 +159,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Indicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

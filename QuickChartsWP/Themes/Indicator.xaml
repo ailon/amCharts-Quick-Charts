@@ -7,7 +7,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="amq:Indicator">
-                    <Ellipse Fill="{TemplateBinding Fill}" Stroke="{TemplateBinding Stroke}" StrokeThickness="2" Width="12" Height="12" Margin="-6,-6,0,0" />
+                    <Canvas>
+                        <Ellipse Fill="Transparent" Width="60" Height="60" Margin="-30, -30, 0, 0" />
+                        <Ellipse Fill="{TemplateBinding Fill}" Stroke="{TemplateBinding Stroke}" StrokeThickness="2" Width="12" Height="12" Margin="-6,-6,0,0" />
+                    </Canvas>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
