@@ -141,6 +141,23 @@ namespace AmCharts.Windows.QuickCharts
             set { SetValue(ValueMemberPathProperty, value); }
         }
 
+		/// <summary>
+		/// Identifies <see cref="ValueFormatString"/> dependency property.
+		/// </summary>
+		public static readonly DependencyProperty ValueFormatStringProperty = DependencyProperty.Register(
+			"ValueFormatString", typeof(string), typeof(PieChart),
+			new PropertyMetadata(null, new PropertyChangedCallback(PieChart.OnMemberPathPropertyChanged))
+			);
+
+		/// <summary>
+		/// Gets or sets the format string to be used for formatting the values for display
+		/// </summary>
+		public string ValueFormatString
+		{
+			get { return (string)GetValue(ValueFormatStringProperty); }
+			set { SetValue(ValueFormatStringProperty, value); }
+		}
+
         private static void OnMemberPathPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             PieChart chart = d as PieChart;
@@ -228,7 +245,7 @@ namespace AmCharts.Windows.QuickCharts
                 runningTotal += _values[i];
 
                 // tooltip
-                string tooltipContent = _slices[i].Title + " : " + _values[i].ToString() + " (" + (_total != 0 ? _values[i] / _total : 1.0 / _slices.Count).ToString("0.#%") + ")";
+                string tooltipContent = _slices[i].Title + " : " + (string.IsNullOrEmpty(ValueFormatString) ? _values[i].ToString() : _values[i].ToString(ValueFormatString)) + " (" + (_total != 0 ? _values[i] / _total : 1.0 / _slices.Count).ToString("0.#%") + ")";
                 //ToolTipService.SetToolTip(_slices[i], tooltipContent);
                 _slices[i].ToolTipText = tooltipContent;
             }
@@ -237,9 +254,9 @@ namespace AmCharts.Windows.QuickCharts
 
         private void SetSliceBrush(int index)
         {
-            List<Brush> brushes = _brushes.Count > 0 ? _brushes : _presetBrushes;
-            int brushCount = brushes.Count;
-            _slices[index].Brush = brushes[index % brushCount];
+//            List<Brush> brushes = _brushes.Count > 0 ? _brushes : _presetBrushes;
+            int brushCount = Brushes.Count;
+            _slices[index].Brush = Brushes[index % brushCount];
         }
 
         private void RemoveSlices()
@@ -448,16 +465,44 @@ namespace AmCharts.Windows.QuickCharts
             new SolidColorBrush(Color.FromArgb(0xFF, 0x99, 0x00, 0x00))
         };
 
-        private List<Brush> _brushes = new List<Brush>();
-
-        /// <summary>
-        /// Gets a collection of preset brushes used for slices.
-        /// </summary>
-        public List<Brush> Brushes
+//        private List<Brush> _brushes = new List<Brush>();
+		public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(
+			"Brushes", typeof(List<Brush>), typeof(PieChart),
+			new PropertyMetadata(new List<Brush>()
         {
-            get { return _brushes; }
-            set { throw new NotSupportedException(); }
-        }
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x0F, 0x00)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x66, 0x00)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x9E, 0x01)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xFC, 0xD2, 0x02)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xF8, 0xFF, 0x01)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xB0, 0xDE, 0x09)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x04, 0xD2, 0x15)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x0D, 0x8E, 0xCF)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x0D, 0x52, 0xD1)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x3A, 0x0C, 0xD0)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x8A, 0x0C, 0xCF)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xCD, 0x0D, 0x74)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x75, 0x4D, 0xEB)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xDD, 0xDD, 0xDD)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x99, 0x99, 0x99)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x33, 0x33, 0x33)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x99, 0x00, 0x00))
+        }, new PropertyChangedCallback(PieChart.OnDataSourcePropertyChanged)));
+
+		public List<Brush> Brushes
+		{
+			get { return (List<Brush>)GetValue(BrushesProperty); }
+			set { SetValue(BrushesProperty, value); }
+		}
+
+		///// <summary>
+		///// Gets a collection of preset brushes used for slices.
+		///// </summary>
+		//public List<Brush> Brushes
+		//{
+		//    get { return _brushes; }
+		//    set { throw new NotSupportedException(); }
+		//}
 
         private void DisplayBalloon(Slice slice, Point position)
         {
