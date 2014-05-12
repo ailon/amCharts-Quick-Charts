@@ -56,7 +56,7 @@ namespace AmCharts.Windows.QuickCharts
             {
                 if (e.OldItems != null)
                 {
-                    foreach (ILegendItem item in e.NewItems)
+                    foreach (ILegendItem item in e.OldItems)
                     {
                         _itemsSource.Remove(_itemsSource.First(p => p.OriginalItem == item));
                     }

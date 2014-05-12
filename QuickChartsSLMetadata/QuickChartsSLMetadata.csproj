@@ -31,13 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AmCharts.Windows.QuickCharts.SL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>D:\work\wpf\amcharts\QuickCharts\QuickChartsSL\Bin\Release\AmCharts.Windows.QuickCharts.SL.dll</HintPath>
+    <Reference Include="AmCharts.Windows.QuickCharts.SL">
+      <HintPath>..\QuickChartsSL\Bin\Release\AmCharts.Windows.QuickCharts.SL.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Windows.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="system" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows">
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\Silverlight\v4.0\System.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
