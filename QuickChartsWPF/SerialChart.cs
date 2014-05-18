@@ -517,9 +517,13 @@ namespace AmCharts.Windows.QuickCharts
             if (this.DataSource != null && !string.IsNullOrEmpty(CategoryValueMemberPath))
             {
                 BindingEvaluator eval = new BindingEvaluator(CategoryValueMemberPath);
+                
                 foreach (object dataItem in this.DataSource)
                 {
-                    _categoryValues.Add(eval.Eval(dataItem).ToString());
+                    var val = string.IsNullOrEmpty(CategoryFormatString)
+                                  ? (eval.Eval(dataItem).ToString())
+                                  : string.Format(CategoryFormatString, eval.Eval(dataItem));
+                    _categoryValues.Add(val);
                 }
             }
         }
@@ -1012,6 +1016,14 @@ namespace AmCharts.Windows.QuickCharts
             );
 
         /// <summary>
+        /// Identifies <see cref="CategoryFormatString"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty CategoryFormatStringProperty = DependencyProperty.Register(
+            "CategoryFormatString", typeof(string), typeof(SerialChart),
+            new PropertyMetadata(null)
+            );
+
+        /// <summary>
         /// Gets or sets the format string used to format values on axes and in tooltips.
         /// This is a depenency property.
         /// </summary>
@@ -1021,6 +1033,15 @@ namespace AmCharts.Windows.QuickCharts
             set { SetValue(SerialChart.ValueFormatStringProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the format string to be used to format the category values.
+        /// This is a dependency property.
+        /// </summary>
+        public string CategoryFormatString
+        {
+            get { return (string)GetValue(CategoryFormatStringProperty); }
+            set { SetValue(CategoryFormatStringProperty, value); }
+        }
 
     }
 }
