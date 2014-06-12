@@ -141,6 +141,24 @@ namespace AmCharts.Windows.QuickCharts
             set { SetValue(ValueMemberPathProperty, value); }
         }
 
+        /// <summary>
+        /// Identifies <see cref="UserDataMemberPath"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty UserDataMemberPathProperty = DependencyProperty.Register(
+            "UserDataMemberPath", typeof(string), typeof(PieChart),
+            new PropertyMetadata(null, new PropertyChangedCallback(PieChart.OnMemberPathPropertyChanged))
+            );
+
+        /// <summary>
+        /// Gets or sets path to the member in the datasource holding user-specific data for the slice.
+        /// This is a dependency property.
+        /// </summary>
+        public string UserDataMemberPath
+        {
+            get { return (string)GetValue(UserDataMemberPathProperty); }
+            set { SetValue(UserDataMemberPathProperty, value); }
+        }
+
         private static void OnMemberPathPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             PieChart chart = d as PieChart;
@@ -152,6 +170,8 @@ namespace AmCharts.Windows.QuickCharts
 
         private List<string> _titles = new List<string>();
         private List<double> _values = new List<double>();
+        private List<object> _userData = new List<object>();
+
         private double _total;
 
         private void ProcessData()
@@ -165,6 +185,7 @@ namespace AmCharts.Windows.QuickCharts
             {
                 _titles.Clear();
                 _values.Clear();
+                _userData.Clear();
                 _total = 0;
             }
             //InvalidateArrange();
@@ -175,20 +196,27 @@ namespace AmCharts.Windows.QuickCharts
         {
             _titles.Clear();
             _values.Clear();
+            _userData.Clear();
+
             if (!string.IsNullOrEmpty(TitleMemberPath) && !string.IsNullOrEmpty(ValueMemberPath))
             {
                 BindingEvaluator titleEval = new BindingEvaluator(TitleMemberPath);
                 BindingEvaluator valueEval = new BindingEvaluator(ValueMemberPath);
+                BindingEvaluator userDataEval = new BindingEvaluator(UserDataMemberPath);
+
                 foreach (object dataItem in this.DataSource)
                 {
                     _titles.Add(titleEval.Eval(dataItem).ToString());
                     _values.Add((double)valueEval.Eval(dataItem));
+                    _userData.Add(userDataEval.Eval(dataItem));
+
                     if (dataItem is INotifyPropertyChanged)
                     {
                         (dataItem as INotifyPropertyChanged).PropertyChanged -= OnDataSourceItemPropertyChanged;
                         (dataItem as INotifyPropertyChanged).PropertyChanged += new PropertyChangedEventHandler(OnDataSourceItemPropertyChanged);
                     }
                 }
+
                 _total = _values.Sum();
             }
         }
@@ -266,6 +294,8 @@ namespace AmCharts.Windows.QuickCharts
                 Slice slice = new Slice();
                 slice.RenderTransform = new RotateTransform();
                 slice.RenderTransformOrigin = new Point(0, 0);
+                slice.Tag = _userData[i];
+
                 _slices.Add(slice);
 #if WINDOWS_PHONE
                 slice.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(OnSliceManipulationStarted);
@@ -280,12 +310,39 @@ namespace AmCharts.Windows.QuickCharts
 
 #if WINDOWS_PHONE
         private bool isSliceEvent = false;
+
         void OnSliceManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
-            GeneralTransform gt = (sender as Slice).TransformToVisual(_sliceCanvasDecorator);
-            DisplayBalloon(sender as Slice, gt.Transform(e.ManipulationOrigin));
+            var slice = sender as Slice;
+
+            SelectedUserData = slice.Tag;
+
+            GeneralTransform gt = slice.TransformToVisual(_sliceCanvasDecorator);
+            DisplayBalloon(slice, gt.Transform(e.ManipulationOrigin));
             //e.Handled = true;
             isSliceEvent = true;
+        }
+
+        /// <summary>
+        /// The currently selected value.
+        /// </summary>
+        public static readonly DependencyProperty SelectedUserDataDependencyProperty =
+            DependencyProperty.Register("SelectedUserData", typeof (object), typeof (PieChart), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets the selected value. The selected value represents the user-specific data. This is a dependency property.
+        /// </summary>
+        public object SelectedUserData
+        {
+            get
+            {
+                return (object) GetValue(SelectedUserDataDependencyProperty);
+            }
+
+            set
+            {
+                SetValue(SelectedUserDataDependencyProperty, value);
+            }
         }
 
         /// <summary>
@@ -464,6 +521,7 @@ namespace AmCharts.Windows.QuickCharts
             _balloon.Text = slice.ToolTipText;
             _balloon.Visibility = Visibility.Visible;
             _balloon.Measure(new Size(_sliceCanvasDecorator.ActualWidth, _sliceCanvasDecorator.ActualHeight));
+
             double balloonLeft = position.X - _balloon.DesiredSize.Width / 2;
             if (balloonLeft < 0)
             {
