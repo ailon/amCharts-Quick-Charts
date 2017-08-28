@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{31FDBFD7-6F93-4D3C-8C1A-58D87E915EC5}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AmCharts.Windows.QuickCharts</RootNamespace>
+    <AssemblyName>AmCharts.Windows.QuickCharts.WP</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\QuickChartsWPF\AreaGraph.cs">
+      <Link>AreaGraph.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\Balloon.cs">
+      <Link>Balloon.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\BindingEvaluator.cs">
+      <Link>BindingEvaluator.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\CategoryAxis.cs">
+      <Link>CategoryAxis.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\ColumnGraph.cs">
+      <Link>ColumnGraph.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\DataPathEventArgs.cs">
+      <Link>DataPathEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\DiscreetClearObservableCollection.cs">
+      <Link>DiscreetClearObservableCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\ILegendItem.cs">
+      <Link>ILegendItem.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\Indicator.cs">
+      <Link>Indicator.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\Legend.cs">
+      <Link>Legend.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\LegendItem.cs">
+      <Link>LegendItem.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\LineGraph.cs">
+      <Link>LineGraph.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\PieChart.cs">
+      <Link>PieChart.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\SerialChart.cs">
+      <Link>SerialChart.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\SerialGraph.cs">
+      <Link>SerialGraph.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\Slice.cs">
+      <Link>Slice.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\TextBlockHelper.cs">
+      <Link>TextBlockHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\TreeHelper.cs">
+      <Link>TreeHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\ValueAxis.cs">
+      <Link>ValueAxis.cs</Link>
+    </Compile>
+    <Compile Include="..\QuickChartsWPF\ValueGrid.cs">
+      <Link>ValueGrid.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\QuickChartsWPF\Themes\AreaGraph.xaml">
+      <Link>Themes\AreaGraph.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\Balloon.xaml">
+      <Link>Themes\Balloon.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\CategoryAxis.xaml">
+      <Link>Themes\CategoryAxis.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\ColumnGraph.xaml">
+      <Link>Themes\ColumnGraph.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\Legend.xaml">
+      <Link>Themes\Legend.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\LineGraph.xaml">
+      <Link>Themes\LineGraph.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\Slice.xaml">
+      <Link>Themes\Slice.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\ValueAxis.xaml">
+      <Link>Themes\ValueAxis.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\QuickChartsWPF\Themes\ValueGrid.xaml">
+      <Link>Themes\ValueGrid.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Indicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\PieChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\SerialChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
